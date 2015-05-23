@@ -1,8 +1,8 @@
 import Foundation
 
 
-class HTTPMessage{
-  let message:CFHTTPMessageRef
+struct HTTPMessage{
+  private let message:CFHTTPMessageRef
   var needsMoreHeader:Bool{
     return CFHTTPMessageIsHeaderComplete(message) == 0 //Converts int-based "Boolean" type to Bool.
   }
@@ -24,6 +24,9 @@ class HTTPMessage{
   var headers:[String:String]?{
     return CFHTTPMessageCopyAllHeaderFields(message).takeRetainedValue() as? [String : String]
   }
+  var data:NSData?{
+    return CFHTTPMessageCopySerializedMessage(message).takeRetainedValue()
+  }
   var contentLength:Int{
     return headers?["Content-Length"]?.toInt() ?? 0
   }
@@ -38,10 +41,22 @@ class HTTPMessage{
       return nil
     }
   }
+  var request:NSURLRequest{
+    return NSURLRequest.requestWithMessage(message)
+  }
   
   
   init(){
     message = CFHTTPMessageCreateEmpty(nil, 1).takeRetainedValue() //1 == "true"
+  }
+  
+  
+  init(response:DataHTTPURLResponse){
+    message = CFHTTPMessageCreateResponse(nil, response.statusCode, nil, kCFHTTPVersion1_1).takeRetainedValue()
+    for (key, value) in response.allHeaderFields{
+      CFHTTPMessageSetHeaderFieldValue(message, key as! CFString, value as! CFString)
+    }
+    CFHTTPMessageSetBody(message, response.data)
   }
   
   

@@ -6,20 +6,18 @@ class HTTPConnection : NSObject {
   struct HTTPConnectionCallbacks{
     var requestDidFinish:((req:NSURLRequest)->Void)?
     var responseDidFinish:(()->Void)?
+    var responseForEndpoint:((Endpoint)->DataHTTPURLResponse?)?
   }
   var callbacks = HTTPConnectionCallbacks()
   let socket:GCDAsyncSocket
-  private let _request:HTTPMessage
   var machine:StateMachine<HTTPConnection>!
-  //  let response:HTTPMessage
   
   init(socket:GCDAsyncSocket){
     self.socket = socket
-    _request = HTTPMessage()
     super.init()
     self.socket.setDelegate(self, delegateQueue: dispatch_get_main_queue())
     machine = StateMachine(initialState:.Ready, delegate:self)
-    machine.state = .ReadingHead
+    machine.state = .ReadingHead(HTTPMessage())
   }
 }
 
@@ -37,24 +35,46 @@ private extension HTTPConnection{
     //This is a no-op when «length» is 0.
     socket.readDataToLength(length, withTimeout:timeout, tag:0)
   }
+  
+  
+  func respondToMessage(message:HTTPMessage){
+    let endpoint = Endpoint(method:message.method, path:message.url?.path)
+    let response = callbacks.responseForEndpoint?(endpoint) ?? DataHTTPURLResponse()!
+    machine.state = .WritingResponse(response.message)
+  }
+  
+  
+  func writeResponse(message:HTTPMessage){
+    socket.writeData(message.data, withTimeout:timeout, tag:0)
+  }
 }
 
 
 extension HTTPConnection{ //GCDAsyncSocket delegate
   func socket(socket:GCDAsyncSocket, didReadData data:NSData, withTag tag:Int){
     switch machine.state{
-    case .ReadingHead:
-      _request.append(data)
-      if _request.needsMoreHeader{
-        machine.state = .ReadingHead //Could blow the stack, but probably not for average headers.
+    case .ReadingHead(let message):
+      message.append(data)
+      if message.needsMoreHeader{
+        machine.state = .ReadingHead(message) //Could blow the stack, but probably not for average headers.
       } else{
-        machine.state = .ReadingBody(_request.contentLength)
+        machine.state = .ReadingBody(message)
       }
-    case .ReadingBody:
-      _request.append(data) //We're assuming this only gets called once because we give it the lenght of the buffer.
-      machine.state = .SendingResponse
+    case .ReadingBody(let message):
+      message.append(data) //We're assuming this only gets called once because we give it the lenght of the buffer.
+      machine.state = .ReadComplete(message)
     default:
       assertionFailure("HTTPConnection read data outside of a reading state")
+    }
+  }
+  
+  
+  func socket(socket:GCDAsyncSocket, didWriteDataWithTag tag:Int){
+    switch machine.state{
+    case .WritingResponse:
+      machine.state = .WriteComplete
+    default:
+      assertionFailure("HTTPConnection wrote data outside of a writing state")
     }
   }
 }
@@ -62,17 +82,21 @@ extension HTTPConnection{ //GCDAsyncSocket delegate
 
 extension HTTPConnection : StateMachineDelegateProtocol{
   enum State : StateMachineDataSourceProtocol{
-    case Ready, ReadingHead, ReadingBody(Int), SendingResponse
+    case Ready, ReadingHead(HTTPMessage), ReadingBody(HTTPMessage), ReadComplete(HTTPMessage), WritingResponse(HTTPMessage), WriteComplete
     func shouldTransitionFrom(from:StateType, to:StateType) -> Should<StateType>{
       switch (from, to){
       case (.Ready, .ReadingHead):
         return .Continue
       case (.ReadingHead, ReadingHead):
         return .Continue
-      case (.ReadingHead, .ReadingBody(let length)):
+      case (.ReadingHead, .ReadingBody(let message)):
         //We have to short-circuit here because reading 0 length from the socket is a no-op (and thus will never cause the async callback to be fired, thus never transitioning to SendingResponse).
-        return (length == 0) ? .Redirect(.SendingResponse) : .Continue
-      case (.ReadingBody, .SendingResponse):
+        return (message.contentLength == 0) ? .Redirect(.ReadComplete(message)) : .Continue
+      case (.ReadingBody, .ReadComplete):
+        return .Continue
+      case (.ReadComplete, .WritingResponse):
+        return .Continue
+      case (.WritingResponse, .WriteComplete):
         return .Continue
       default:
         return .Abort
@@ -86,14 +110,19 @@ extension HTTPConnection : StateMachineDelegateProtocol{
     switch to{
     case .ReadingHead:
       readHead()
-    case .ReadingBody(let length):
-      readBodyOfLength(UInt(length))
-    case .SendingResponse:
-      let req = NSMutableURLRequest()
-      req.HTTPBody = _request.body
-      callbacks.requestDidFinish?(req:req)
+    case .ReadingBody(let message):
+      readBodyOfLength(UInt(message.contentLength))
+    case .ReadComplete(let message):
+      callbacks.requestDidFinish?(req:message.request)
+      respondToMessage(message)
+    case .WritingResponse(let message):
+      writeResponse(message)
+    case .WriteComplete:
+      socket.disconnect()
+      callbacks.responseDidFinish?()
     default:
       break
     }
   }
+  
 }

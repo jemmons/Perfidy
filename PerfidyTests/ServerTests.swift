@@ -28,18 +28,19 @@ class ServerTests: XCTestCase {
   
   
   func testShouldRespondWithData(){
-    let expectation = expectationWithDescription("Thing should stuff")
+    let expectation = expectationWithDescription("Should get response")
 
-    self.server.start()
-    let url = NSURL(string: "localhost:10175/foo")!
-    let req = NSMutableURLRequest(URL: url)
-    req.HTTPBody = "Foo".dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-    var res:AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
-    var error:NSErrorPointer = nil
-    NSURLConnection.sendAsynchronousRequest(req, queue:nil){ res, data, error in
-      expectation.fulfill()
+    let res = DataHTTPURLResponse(statusCode: 201, rawJSON:"{\"thing\":42}")!
+    server.addResponse(res, forEndpoint:Endpoint(path:"/foo"))
+    server.start()
+    
+    let req = NSURLRequest(URL:NSURL(string: "http://localhost:10175/foo")!)
+    NSURLConnection.sendAsynchronousRequest(req, queue: NSOperationQueue.mainQueue()){ res, data, error in
+      if error == nil && (res as! NSHTTPURLResponse).statusCode == 201{
+        expectation.fulfill()
+      }
     }
-    waitForExpectationsWithTimeout(100.0){ error in
-    }
+    
+    waitForExpectationsWithTimeout(3.0){ error in }
   }
 }

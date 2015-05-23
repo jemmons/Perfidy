@@ -3,7 +3,7 @@ import Foundation
 public class HTTPServer : NSObject{
   var socket:GCDAsyncSocket!
   var connections = [HTTPConnection]()
-  var pathToResponseMap = [String:NSURLResponse]()
+  var endpointToResponseMap = [Endpoint:DataHTTPURLResponse]()
   
   public override init(){
     super.init()
@@ -29,8 +29,8 @@ public class HTTPServer : NSObject{
   }
 
   
-  public func addResponse(res:NSURLResponse, forPath path:String){
-    pathToResponseMap[path] = res
+  public func addResponse(res:DataHTTPURLResponse, forEndpoint endpoint:Endpoint){
+    endpointToResponseMap[endpoint] = res
   }
   
   
@@ -38,6 +38,12 @@ public class HTTPServer : NSObject{
     let connection = HTTPConnection(socket: newSocket)
     connection.callbacks.requestDidFinish = {(req:NSURLRequest) in
       println(NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding))
+    }
+    connection.callbacks.responseForEndpoint = {[unowned self](endpoint:Endpoint) in
+      return self.endpointToResponseMap[endpoint]
+    }
+    connection.callbacks.responseDidFinish = {[unowned self, unowned connection] in
+      self.connections = self.connections.filter{ $0 != connection }
     }
     connections.append(connection)
   }
