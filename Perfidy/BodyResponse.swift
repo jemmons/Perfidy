@@ -1,22 +1,26 @@
 import Foundation
 
-public class DataHTTPURLResponse : NSHTTPURLResponse{
-  var data:NSData?
-
+/// A simple subclass of `NSHTTPURLResponse` that encapsulates response body as well as header.
+///
+/// It adds a `data` property, related constructors, and automagically inserts `Content-Length` into headers if not already present.
+public class BodyResponse : NSHTTPURLResponse{
+  public static var contentLengthHeaderName:String{
+    return "Content-Length"
+  }
+  public var data:NSData?
   
-  var allHeadersFields:NSDictionary{
+  public override var allHeaderFields:[NSObject:AnyObject]{
     var headers = super.allHeaderFields
-    if headers["Content-Length"] == nil{
-      let length = data?.length ?? 0
-      headers["Content-Length"] = String(length)
+    if let someData = data where headers[BodyResponse.contentLengthHeaderName] == nil {
+      headers[BodyResponse.contentLengthHeaderName] = String(someData.length)
     }
     return headers
   }
   
-  
   var message:HTTPMessage{
     return HTTPMessage(response:self)
   }
+  
   
   public init?(url:NSURL=NSURL(string:"/")!, statusCode:Int=200, headerFields:[String:String]=[String:String](), data:NSData?=nil){
     self.data = data

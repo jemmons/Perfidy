@@ -6,11 +6,12 @@ class HTTPConnection : NSObject {
   struct HTTPConnectionCallbacks{
     var requestDidFinish:((req:NSURLRequest)->Void)?
     var responseDidFinish:(()->Void)?
-    var responseForEndpoint:((Endpoint)->DataHTTPURLResponse?)?
+    var responseForEndpoint:((Endpoint)->BodyResponse?)?
   }
   var callbacks = HTTPConnectionCallbacks()
-  let socket:GCDAsyncSocket
-  var machine:StateMachine<HTTPConnection>!
+  var defaultStatusCode = 200
+  private let socket:GCDAsyncSocket
+  private var machine:StateMachine<HTTPConnection>!
   
   init(socket:GCDAsyncSocket){
     self.socket = socket
@@ -39,7 +40,7 @@ private extension HTTPConnection{
   
   func respondToMessage(message:HTTPMessage){
     let endpoint = Endpoint(method:message.method, path:message.url?.path)
-    let response = callbacks.responseForEndpoint?(endpoint) ?? DataHTTPURLResponse()!
+    let response = callbacks.responseForEndpoint?(endpoint) ?? BodyResponse(statusCode:defaultStatusCode)!
     machine.state = .WritingResponse(response.message)
   }
   

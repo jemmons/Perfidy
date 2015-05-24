@@ -7,19 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7317D3441B1244C400D0DC1B /* BodyResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317D3431B1244C400D0DC1B /* BodyResponseTests.swift */; };
 		731E6CE61B093DEA00DBBB96 /* Perfidy.h in Headers */ = {isa = PBXBuildFile; fileRef = 731E6CE51B093DEA00DBBB96 /* Perfidy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		731E6CEC1B093DEA00DBBB96 /* Perfidy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 731E6CE01B093DEA00DBBB96 /* Perfidy.framework */; };
 		731E6CFF1B093E9000DBBB96 /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 731E6CFD1B093E9000DBBB96 /* GCDAsyncSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		731E6D001B093E9000DBBB96 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 731E6CFE1B093E9000DBBB96 /* GCDAsyncSocket.m */; };
-		731E6D041B093EA500DBBB96 /* HTTPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D011B093EA500DBBB96 /* HTTPServer.swift */; };
+		731E6D041B093EA500DBBB96 /* FakeServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D011B093EA500DBBB96 /* FakeServer.swift */; };
 		731E6D051B093EA500DBBB96 /* HTTPConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D021B093EA500DBBB96 /* HTTPConnection.swift */; };
 		731E6D061B093EA500DBBB96 /* HTTPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D031B093EA500DBBB96 /* HTTPMessage.swift */; };
 		731E6D081B093EAF00DBBB96 /* ServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D071B093EAF00DBBB96 /* ServerTests.swift */; };
 		731E6D0C1B093FB300DBBB96 /* FiniteGauntlet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 731E6D0B1B093FB300DBBB96 /* FiniteGauntlet.framework */; };
 		731E6D0E1B093FBD00DBBB96 /* GroundFloor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 731E6D0D1B093FBD00DBBB96 /* GroundFloor.framework */; };
 		73BC5E7C1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7B1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift */; };
-		73BC5E7E1B0FB8EF009C576E /* DataHTTPURLResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7D1B0FB8EF009C576E /* DataHTTPURLResponse.swift */; };
-		73BC5E801B0FD4C6009C576E /* HTTPVerb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7F1B0FD4C6009C576E /* HTTPVerb.swift */; };
+		73BC5E7E1B0FB8EF009C576E /* BodyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7D1B0FB8EF009C576E /* BodyResponse.swift */; };
+		73BC5E801B0FD4C6009C576E /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7F1B0FD4C6009C576E /* Verb.swift */; };
 		73BC5E821B0FD773009C576E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E811B0FD773009C576E /* Endpoint.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7317D3431B1244C400D0DC1B /* BodyResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyResponseTests.swift; sourceTree = "<group>"; };
 		731E6CE01B093DEA00DBBB96 /* Perfidy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Perfidy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		731E6CE41B093DEA00DBBB96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		731E6CE51B093DEA00DBBB96 /* Perfidy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Perfidy.h; sourceTree = "<group>"; };
@@ -42,15 +44,15 @@
 		731E6CFC1B093E5900DBBB96 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		731E6CFD1B093E9000DBBB96 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		731E6CFE1B093E9000DBBB96 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
-		731E6D011B093EA500DBBB96 /* HTTPServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPServer.swift; sourceTree = "<group>"; };
+		731E6D011B093EA500DBBB96 /* FakeServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FakeServer.swift; sourceTree = "<group>"; };
 		731E6D021B093EA500DBBB96 /* HTTPConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPConnection.swift; sourceTree = "<group>"; };
 		731E6D031B093EA500DBBB96 /* HTTPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMessage.swift; sourceTree = "<group>"; };
 		731E6D071B093EAF00DBBB96 /* ServerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTests.swift; sourceTree = "<group>"; };
 		731E6D0B1B093FB300DBBB96 /* FiniteGauntlet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FiniteGauntlet.framework; path = ../Carthage/Build/iOS/FiniteGauntlet.framework; sourceTree = "<group>"; };
 		731E6D0D1B093FBD00DBBB96 /* GroundFloor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GroundFloor.framework; path = ../Carthage/Build/iOS/GroundFloor.framework; sourceTree = "<group>"; };
 		73BC5E7B1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLRequest+CFNetworking.swift"; sourceTree = "<group>"; };
-		73BC5E7D1B0FB8EF009C576E /* DataHTTPURLResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHTTPURLResponse.swift; sourceTree = "<group>"; };
-		73BC5E7F1B0FD4C6009C576E /* HTTPVerb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPVerb.swift; sourceTree = "<group>"; };
+		73BC5E7D1B0FB8EF009C576E /* BodyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyResponse.swift; sourceTree = "<group>"; };
+		73BC5E7F1B0FD4C6009C576E /* Verb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
 		73BC5E811B0FD773009C576E /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,14 +100,12 @@
 			isa = PBXGroup;
 			children = (
 				731E6CE51B093DEA00DBBB96 /* Perfidy.h */,
-				731E6D011B093EA500DBBB96 /* HTTPServer.swift */,
-				73BC5E7F1B0FD4C6009C576E /* HTTPVerb.swift */,
+				731E6D011B093EA500DBBB96 /* FakeServer.swift */,
+				73BC5E7D1B0FB8EF009C576E /* BodyResponse.swift */,
+				73BC5E7F1B0FD4C6009C576E /* Verb.swift */,
 				73BC5E811B0FD773009C576E /* Endpoint.swift */,
-				731E6D021B093EA500DBBB96 /* HTTPConnection.swift */,
-				731E6D031B093EA500DBBB96 /* HTTPMessage.swift */,
+				73BC5E831B10D519009C576E /* Internal */,
 				731E6CE31B093DEA00DBBB96 /* Supporting Files */,
-				73BC5E7B1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift */,
-				73BC5E7D1B0FB8EF009C576E /* DataHTTPURLResponse.swift */,
 			);
 			path = Perfidy;
 			sourceTree = "<group>";
@@ -125,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				731E6D071B093EAF00DBBB96 /* ServerTests.swift */,
+				7317D3431B1244C400D0DC1B /* BodyResponseTests.swift */,
 				731E6CF01B093DEA00DBBB96 /* Supporting Files */,
 			);
 			path = PerfidyTests;
@@ -137,6 +138,16 @@
 				731E6CF11B093DEA00DBBB96 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		73BC5E831B10D519009C576E /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				73BC5E7B1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift */,
+				731E6D021B093EA500DBBB96 /* HTTPConnection.swift */,
+				731E6D031B093EA500DBBB96 /* HTTPMessage.swift */,
+			);
+			name = Internal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,12 +291,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				731E6D041B093EA500DBBB96 /* HTTPServer.swift in Sources */,
-				73BC5E7E1B0FB8EF009C576E /* DataHTTPURLResponse.swift in Sources */,
+				731E6D041B093EA500DBBB96 /* FakeServer.swift in Sources */,
+				73BC5E7E1B0FB8EF009C576E /* BodyResponse.swift in Sources */,
 				73BC5E821B0FD773009C576E /* Endpoint.swift in Sources */,
 				731E6D061B093EA500DBBB96 /* HTTPMessage.swift in Sources */,
 				73BC5E7C1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift in Sources */,
-				73BC5E801B0FD4C6009C576E /* HTTPVerb.swift in Sources */,
+				73BC5E801B0FD4C6009C576E /* Verb.swift in Sources */,
 				731E6D051B093EA500DBBB96 /* HTTPConnection.swift in Sources */,
 				731E6D001B093E9000DBBB96 /* GCDAsyncSocket.m in Sources */,
 			);
@@ -295,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7317D3441B1244C400D0DC1B /* BodyResponseTests.swift in Sources */,
 				731E6D081B093EAF00DBBB96 /* ServerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

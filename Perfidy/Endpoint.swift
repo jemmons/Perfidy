@@ -1,16 +1,16 @@
 import Foundation
 
 public struct Endpoint{
-  let method:HTTPVerb
+  let method:Verb
   let path:String
 
-  public init(method:HTTPVerb = .GET, path:String?){
+  public init(method:Verb = .GET, path:String?){
     self.method = method
     self.path = path ?? "/"
   }
   
   public init(method:String?, path:String?){
-    let verb = HTTPVerb(rawValue: method?.uppercaseString ?? "GET") ?? .GET
+    let verb = Verb(rawValue: method?.uppercaseString ?? "GET") ?? .GET
     self.init(method:verb, path:path)
   }
 }

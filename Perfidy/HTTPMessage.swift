@@ -51,7 +51,7 @@ struct HTTPMessage{
   }
   
   
-  init(response:DataHTTPURLResponse){
+  init(response:BodyResponse){
     message = CFHTTPMessageCreateResponse(nil, response.statusCode, nil, kCFHTTPVersion1_1).takeRetainedValue()
     for (key, value) in response.allHeaderFields{
       CFHTTPMessageSetHeaderFieldValue(message, key as! CFString, value as! CFString)
@@ -63,19 +63,6 @@ struct HTTPMessage{
   func append(data:NSData){
     CFHTTPMessageAppendBytes(message, unsafeBitCast(data.bytes, UnsafePointer<UInt8>.self), data.length)
   }
-  
-  
-//  func statusCode()->Int{
-//    return CFHTTPMessageGetResponseStatusCode(message)
-//  }
-
-//  func
-//  
-//
-//  - (NSString *)headerField:(NSString *)headerField
-//  {
-//  return (__bridge_transfer NSString *)CFHTTPMessageCopyHeaderFieldValue(message, (__bridge CFStringRef)headerField);
-//  }
 }
 
 
