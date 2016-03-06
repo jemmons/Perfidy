@@ -44,11 +44,10 @@ class ServerTests: XCTestCase {
     let expect400 = expectationWithDescription("400 status code")
     let expect800 = expectationWithDescription("Nonexistant status code")
     
-//    let responses =
-    server.add(Response(status: 201), endpoint: Endpoint(path: "/201"))
-    server.add(Response(status: 300), endpoint: Endpoint(path: "/300"))
-    server.add(Response(status: 400), endpoint: Endpoint(path: "/400"))
-    server.add(Response(status: 800), endpoint: Endpoint(path: "/800"))
+    server.add(201, endpoint: "/201")
+    server.add(300, endpoint: "/300")
+    server.add(400, endpoint: "/400")
+    server.add(800, endpoint: "/800")
     try! server.start()
     
     sendRequest("/foo/bar"){ res, data, error in

@@ -62,8 +62,8 @@ struct HTTPMessage{
     for (key, value) in response.headers {
       CFHTTPMessageSetHeaderFieldValue(message, key as CFString, value as CFString)
     }
-    if let data = response.data {
-      CFHTTPMessageSetBody(message, data as CFData)
+    if let body = response.body {
+      CFHTTPMessageSetBody(message, body as CFData)
     }
   }
   

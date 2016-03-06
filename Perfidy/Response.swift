@@ -7,6 +7,9 @@ import Rebar
 /// 
 /// Using the json, and text convenience initializers also sets the `Content-Type` if not already present.
 public struct Response {
+  public enum Error: ErrorType {
+    case invalidJSONObject
+  }
   private struct K {
     static let contentLengthKey = "Content-Length"
     static let contentTypeKey = "Content-Type"
@@ -14,14 +17,13 @@ public struct Response {
     static let textContentType = "text/html"
   }
   public let status: Int
-  public let data: NSData?
+  public let body: NSData?
   public let headers: [String:String]
   
   
-  
-  public init(status: Int = 200, headers: [String:String] = [String:String](), data: NSData? = nil) {
+  public init(status: Int = 200, headers: [String:String] = [String:String](), data: NSData?) {
     self.status = status
-    self.data = data
+    self.body = data
     let contentLengthHeader = data == nil ? [:] : [K.contentLengthKey:String(data!.length)]
     self.headers = contentLengthHeader + headers
   }
@@ -35,8 +37,11 @@ public struct Response {
   
   
   public init(status: Int = 200, headers: [String:String] = [String:String](), json: [NSObject:AnyObject]) throws {
-    let mergedHeaders = [K.contentTypeKey:K.jsonContentType] + headers
+    guard NSJSONSerialization.isValidJSONObject(json) else {
+      throw Error.invalidJSONObject
+    }
     let data = try NSJSONSerialization.dataWithJSONObject(json, options: [])
+    let mergedHeaders = [K.contentTypeKey:K.jsonContentType] + headers
     self.init(status: status, headers: mergedHeaders, data: data)
   }
   
@@ -50,5 +55,45 @@ public struct Response {
     let data = try NSJSONSerialization.dataWithJSONObject(json, options: [])
     
     self.init(status: status, headers: mergedHeaders, data: data)
+  }
+}
+
+
+
+//NOTE: There's probably a case to be made for strings translating into «rawJSON» instead of text/html. But text seems the more naturally expected outcome to me. To do JSON, use «DictionaryLiteralConvertible».
+extension Response: StringLiteralConvertible {
+  public init(stringLiteral value: String) {
+    self.init(text: value)
+  }
+  
+  
+  public init(unicodeScalarLiteral value: String){
+    self.init(text: value)
+  }
+  
+  
+  public init(extendedGraphemeClusterLiteral value: String){
+    self.init(text: value)
+  }
+}
+
+
+extension Response: DictionaryLiteralConvertible {
+  public init(dictionaryLiteral elements: (NSObject, AnyObject)...) {
+    let json = Dictionary(pairs: elements)
+    //NOTE: Becuase of the way «DictionaryLiteralConvertible» is defined, this initializer is the one that gets called when there are no arguments (as in: «Response()»).
+    guard json.isNotEmpty else {
+      self.init(data: nil)
+      return
+    }
+    try! self.init(json: json)
+  }
+}
+
+
+
+extension Response: IntegerLiteralConvertible {
+  public init(integerLiteral value: Int) {
+    self.init(status: value, data: nil)
   }
 }

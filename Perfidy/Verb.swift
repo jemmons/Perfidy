@@ -7,3 +7,11 @@ public enum Verb:String{
     self = Verb(rawValue: string.uppercaseString) ?? Verb.GET
   }
 }
+
+
+
+extension Verb: CustomStringConvertible {
+  public var description: String {
+    return self.rawValue
+  }
+}

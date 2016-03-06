@@ -44,7 +44,7 @@ private extension HTTPConnection{
   
   func respondToMessage(message:HTTPMessage){
     let endpoint = Endpoint(method: message.method, path: message.url?.path)
-    let response = callback.whenNeedsResponseForEndpoint?(endpoint) ?? Response(status: defaultStatusCode)
+    let response = callback.whenNeedsResponseForEndpoint?(endpoint) ?? Response(status: defaultStatusCode, data: nil)
     machine.queueState(.WritingResponse(HTTPMessage(response: response)))
   }
   
