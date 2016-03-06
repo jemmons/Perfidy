@@ -58,14 +58,9 @@ struct HTTPMessage{
   
   
   init(response: Response){
-    message = CFHTTPMessageCreateResponse(nil, response.statusCode, nil, kCFHTTPVersion1_1).takeRetainedValue()
-    response.allHeaderFields.forEach { key, value in
-      guard let
-        keyString = key as? String,
-        valueString = value as? String else {
-          return
-      }
-      CFHTTPMessageSetHeaderFieldValue(message, keyString as CFString, valueString as CFString)
+    message = CFHTTPMessageCreateResponse(nil, response.status, nil, kCFHTTPVersion1_1).takeRetainedValue()
+    for (key, value) in response.headers {
+      CFHTTPMessageSetHeaderFieldValue(message, key as CFString, value as CFString)
     }
     if let data = response.data {
       CFHTTPMessageSetBody(message, data as CFData)

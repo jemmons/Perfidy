@@ -54,7 +54,6 @@ public extension FakeServer{
   
   
   public func add(response: Response, endpoint: Endpoint) {
-    response.internalURL = NSURL(string: endpoint.path)
     endpointToResponseMap[endpoint] = response
   }
   

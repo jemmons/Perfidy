@@ -45,10 +45,10 @@ class ServerTests: XCTestCase {
     let expect800 = expectationWithDescription("Nonexistant status code")
     
 //    let responses =
-    server.add(Response(status: 201)!, endpoint: Endpoint(path: "/201"))
-    server.add(Response(status: 300)!, endpoint: Endpoint(path: "/300"))
-    server.add(Response(status: 400)!, endpoint: Endpoint(path: "/400"))
-    server.add(Response(status: 800)!, endpoint: Endpoint(path: "/800"))
+    server.add(Response(status: 201), endpoint: Endpoint(path: "/201"))
+    server.add(Response(status: 300), endpoint: Endpoint(path: "/300"))
+    server.add(Response(status: 400), endpoint: Endpoint(path: "/400"))
+    server.add(Response(status: 800), endpoint: Endpoint(path: "/800"))
     try! server.start()
     
     sendRequest("/foo/bar"){ res, data, error in
@@ -91,7 +91,7 @@ class ServerTests: XCTestCase {
   func testRawJSONResponse(){
     let expectResponse = expectationWithDescription("Should get response")
 
-    let res = Response(status: 201, rawJSON:"{\"thing\":42}")!
+    let res = try! Response(status: 201, rawJSON:"{\"thing\":42}")
     server.add(res, endpoint:"/foo")
     try! server.start()
 
@@ -110,7 +110,7 @@ class ServerTests: XCTestCase {
   func testJSONResponse(){
     let expectResponse = expectationWithDescription("Should get response")
     
-    let res = Response(status: 202, json:["fred":"barney"])!
+    let res = try! Response(status: 202, json:["fred":"barney"])
     server.add(res, endpoint:"/foo/bar/baz")
     try! server.start()
     

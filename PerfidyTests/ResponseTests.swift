@@ -3,36 +3,32 @@ import XCTest
 import Perfidy
 
 class ResponseTests : XCTestCase{
+  struct K {
+    static let lengthKey = "Content-Length"
+    static let typeKey = "Content-Type"
+  }
+  
   func testNoContent(){
     let subject = Response()
-    XCTAssert(subject?.data == nil)
-    XCTAssert(subject?.allHeaderFields[Response.contentLengthHeaderName] == nil)
+    XCTAssert(subject.data == nil)
+    XCTAssert(subject.headers[K.lengthKey] == nil)
+    XCTAssert(subject.headers[K.typeKey] == nil)
   }
 
   
-  func testWithContent(){
-    let body = "foo"
-    let subject = Response(body:body)
-    XCTAssertEqual(subject!.data!, body.dataUsingEncoding(NSUTF8StringEncoding)!)
-    if let contentLength = subject?.allHeaderFields[Response.contentLengthHeaderName] as? String{
-      XCTAssertEqual(contentLength, "3")
-    } else{
-      XCTFail()
-    }
+  func testWithTextHTML(){
+    let text = "foo"
+    let subject = Response(text:text)
+    XCTAssertEqual(subject.data, text.dataUsingEncoding(NSUTF8StringEncoding))
+    XCTAssertEqual(subject.headers[K.lengthKey], "3")
+    XCTAssertEqual(subject.headers[K.typeKey], "text/html")
   }
   
   
-  func testContentLengthOverride(){
-    let headers = [Response.contentLengthHeaderName:"42"]
-    let subjectWithBody = Response(headers: headers, body:"foo")
-    let subjectWithoutBody = Response(headers: headers)
-    
-    if let contentLengthWithBody = subjectWithBody?.allHeaderFields[Response.contentLengthHeaderName] as? String,
-      contentLengthWithoutBody = subjectWithoutBody?.allHeaderFields[Response.contentLengthHeaderName] as? String{
-        XCTAssertEqual(contentLengthWithBody, "42")
-        XCTAssertEqual(contentLengthWithoutBody, "42")
-    } else{
-      XCTFail()
-    }
+  func testContentHeaderOverride(){
+    let headers = [K.lengthKey:"42", K.typeKey:"foo/bar"]
+    let subject = Response(headers: headers, text:"foo")
+    XCTAssertEqual(subject.headers[K.lengthKey], "42")
+    XCTAssertEqual(subject.headers[K.typeKey], "foo/bar")
   }
 }
