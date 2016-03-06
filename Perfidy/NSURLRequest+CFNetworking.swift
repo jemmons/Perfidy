@@ -1,13 +1,18 @@
 import Foundation
+import Rebar
 
 extension NSURLRequest{
-  static func requestWithMessage(message:CFHTTPMessageRef)->NSURLRequest{
-    let request = NSMutableURLRequest()
-    request.HTTPBody = CFHTTPMessageCopyBody(message).takeRetainedValue()
-    request.HTTPMethod = CFHTTPMessageCopyRequestMethod(message).takeRetainedValue() as String
-    request.URL = CFHTTPMessageCopyRequestURL(message).takeRetainedValue()
-    return request.copy() as! NSURLRequest
+  static func requestWithMessage(message: CFHTTPMessageRef) -> NSURLRequest{
+    return thisAfter(NSMutableURLRequest()) { rec in
+      if let body = CFHTTPMessageCopyBody(message) {
+        rec.HTTPBody = body.takeRetainedValue()
+      }
+      if let method = CFHTTPMessageCopyRequestMethod(message) {
+        rec.HTTPMethod = method.takeRetainedValue() as String
+      }
+      if let url = CFHTTPMessageCopyRequestURL(message) {
+        rec.URL = url.takeRetainedValue()
+      }
+    }
   }
 }
-
-

@@ -1,2 +1,2 @@
-github "jemmons/FiniteGauntlet" == 0.1.1
-github "jemmons/GroundFloor" == 0.3
+github "jemmons/Gauntlet"
+github "reverbdotcom/Rebar"

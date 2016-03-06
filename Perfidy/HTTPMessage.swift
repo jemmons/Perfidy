@@ -1,37 +1,43 @@
 import Foundation
+import Rebar
 
 
 struct HTTPMessage{
   private let message:CFHTTPMessageRef
   var needsMoreHeader:Bool{
-    return CFHTTPMessageIsHeaderComplete(message) == 0 //Converts int-based "Boolean" type to Bool.
+    return CFHTTPMessageIsHeaderComplete(message)
   }
   var needsBody:Bool{
     var hasFormType = false
     var hasJSONType = false
     if let contentType = headers?["Content-Type"]{
-      hasFormType = contentType.contains("application/x-www-form-urlencoded")
-      hasJSONType = contentType.contains("application/json")
+      hasFormType = contentType.containsString("application/x-www-form-urlencoded")
+      hasJSONType = contentType.containsString("application/json")
     }
     return (hasFormType || hasJSONType) && contentLength > 0
   }
   var method:String?{
-    return CFHTTPMessageCopyRequestMethod(message).takeRetainedValue() as String?
+    return CFHTTPMessageCopyRequestMethod(message)?.takeRetainedValue() as String?
   }
   var url:NSURL?{
-    return CFHTTPMessageCopyRequestURL(message).takeRetainedValue() as NSURL?
+    return CFHTTPMessageCopyRequestURL(message)?.takeRetainedValue() as NSURL?
   }
   var headers:[String:String]?{
-    return CFHTTPMessageCopyAllHeaderFields(message).takeRetainedValue() as? [String : String]
+    return CFHTTPMessageCopyAllHeaderFields(message)?.takeRetainedValue() as? [String : String]
   }
   var data:NSData?{
-    return CFHTTPMessageCopySerializedMessage(message).takeRetainedValue()
+    return CFHTTPMessageCopySerializedMessage(message)?.takeRetainedValue()
   }
   var contentLength:Int{
-    return headers?["Content-Length"]?.toInt() ?? 0
+    guard let
+      _lengthString = headers?["Content-Length"],
+      length = Int(_lengthString) else{
+        return 0
+    }
+    return length
   }
   var body:NSData?{
-    return CFHTTPMessageCopyBody(message).takeRetainedValue() as NSData?
+    return CFHTTPMessageCopyBody(message)?.takeRetainedValue() as NSData?
   }
   var bodyString:String?{
     switch body{
@@ -47,27 +53,27 @@ struct HTTPMessage{
   
   
   init(){
-    message = CFHTTPMessageCreateEmpty(nil, 1).takeRetainedValue() //1 == "true"
+    message = CFHTTPMessageCreateEmpty(nil, yes).takeRetainedValue()
   }
   
   
-  init(response:BodyResponse){
+  init(response: Response){
     message = CFHTTPMessageCreateResponse(nil, response.statusCode, nil, kCFHTTPVersion1_1).takeRetainedValue()
-    for (key, value) in response.allHeaderFields{
-      CFHTTPMessageSetHeaderFieldValue(message, key as! CFString, value as! CFString)
+    response.allHeaderFields.forEach { key, value in
+      guard let
+        keyString = key as? String,
+        valueString = value as? String else {
+          return
+      }
+      CFHTTPMessageSetHeaderFieldValue(message, keyString as CFString, valueString as CFString)
     }
-    CFHTTPMessageSetBody(message, response.data)
+    if let data = response.data {
+      CFHTTPMessageSetBody(message, data as CFData)
+    }
   }
   
   
   func append(data:NSData){
     CFHTTPMessageAppendBytes(message, unsafeBitCast(data.bytes, UnsafePointer<UInt8>.self), data.length)
-  }
-}
-
-
-extension String{
-  func contains(substring:String)->Bool{
-    return self.rangeOfString(substring) != nil
   }
 }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7317D3441B1244C400D0DC1B /* BodyResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317D3431B1244C400D0DC1B /* BodyResponseTests.swift */; };
+		7317D3441B1244C400D0DC1B /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317D3431B1244C400D0DC1B /* ResponseTests.swift */; };
 		731E6CE61B093DEA00DBBB96 /* Perfidy.h in Headers */ = {isa = PBXBuildFile; fileRef = 731E6CE51B093DEA00DBBB96 /* Perfidy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		731E6CEC1B093DEA00DBBB96 /* Perfidy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 731E6CE01B093DEA00DBBB96 /* Perfidy.framework */; };
 		731E6CFF1B093E9000DBBB96 /* GCDAsyncSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = 731E6CFD1B093E9000DBBB96 /* GCDAsyncSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -16,10 +16,11 @@
 		731E6D051B093EA500DBBB96 /* HTTPConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D021B093EA500DBBB96 /* HTTPConnection.swift */; };
 		731E6D061B093EA500DBBB96 /* HTTPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D031B093EA500DBBB96 /* HTTPMessage.swift */; };
 		731E6D081B093EAF00DBBB96 /* ServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D071B093EAF00DBBB96 /* ServerTests.swift */; };
-		731E6D0C1B093FB300DBBB96 /* FiniteGauntlet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 731E6D0B1B093FB300DBBB96 /* FiniteGauntlet.framework */; };
-		731E6D0E1B093FBD00DBBB96 /* GroundFloor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 731E6D0D1B093FBD00DBBB96 /* GroundFloor.framework */; };
+		737A82C41C8B8B9C0026BEB0 /* Gauntlet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */; };
+		737A82C81C8B906B0026BEB0 /* Rebar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A82C71C8B906B0026BEB0 /* Rebar.framework */; };
+		737A82CC1C8BE1EB0026BEB0 /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A82CB1C8BE1EB0026BEB0 /* EndpointTests.swift */; };
 		73BC5E7C1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7B1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift */; };
-		73BC5E7E1B0FB8EF009C576E /* BodyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7D1B0FB8EF009C576E /* BodyResponse.swift */; };
+		73BC5E7E1B0FB8EF009C576E /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7D1B0FB8EF009C576E /* Response.swift */; };
 		73BC5E801B0FD4C6009C576E /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7F1B0FD4C6009C576E /* Verb.swift */; };
 		73BC5E821B0FD773009C576E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E811B0FD773009C576E /* Endpoint.swift */; };
 /* End PBXBuildFile section */
@@ -35,7 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		7317D3431B1244C400D0DC1B /* BodyResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyResponseTests.swift; sourceTree = "<group>"; };
+		7317D3431B1244C400D0DC1B /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseTests.swift; sourceTree = "<group>"; };
 		731E6CE01B093DEA00DBBB96 /* Perfidy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Perfidy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		731E6CE41B093DEA00DBBB96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		731E6CE51B093DEA00DBBB96 /* Perfidy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Perfidy.h; sourceTree = "<group>"; };
@@ -48,10 +49,11 @@
 		731E6D021B093EA500DBBB96 /* HTTPConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPConnection.swift; sourceTree = "<group>"; };
 		731E6D031B093EA500DBBB96 /* HTTPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMessage.swift; sourceTree = "<group>"; };
 		731E6D071B093EAF00DBBB96 /* ServerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTests.swift; sourceTree = "<group>"; };
-		731E6D0B1B093FB300DBBB96 /* FiniteGauntlet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FiniteGauntlet.framework; path = ../Carthage/Build/iOS/FiniteGauntlet.framework; sourceTree = "<group>"; };
-		731E6D0D1B093FBD00DBBB96 /* GroundFloor.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GroundFloor.framework; path = ../Carthage/Build/iOS/GroundFloor.framework; sourceTree = "<group>"; };
+		737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gauntlet.framework; path = Carthage/Build/iOS/Gauntlet.framework; sourceTree = SOURCE_ROOT; };
+		737A82C71C8B906B0026BEB0 /* Rebar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rebar.framework; path = Carthage/Build/iOS/Rebar.framework; sourceTree = SOURCE_ROOT; };
+		737A82CB1C8BE1EB0026BEB0 /* EndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
 		73BC5E7B1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLRequest+CFNetworking.swift"; sourceTree = "<group>"; };
-		73BC5E7D1B0FB8EF009C576E /* BodyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyResponse.swift; sourceTree = "<group>"; };
+		73BC5E7D1B0FB8EF009C576E /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		73BC5E7F1B0FD4C6009C576E /* Verb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
 		73BC5E811B0FD773009C576E /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,7 +63,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				731E6D0C1B093FB300DBBB96 /* FiniteGauntlet.framework in Frameworks */,
+				737A82C41C8B8B9C0026BEB0 /* Gauntlet.framework in Frameworks */,
+				737A82C81C8B906B0026BEB0 /* Rebar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +73,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				731E6CEC1B093DEA00DBBB96 /* Perfidy.framework in Frameworks */,
-				731E6D0E1B093FBD00DBBB96 /* GroundFloor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,7 +103,7 @@
 			children = (
 				731E6CE51B093DEA00DBBB96 /* Perfidy.h */,
 				731E6D011B093EA500DBBB96 /* FakeServer.swift */,
-				73BC5E7D1B0FB8EF009C576E /* BodyResponse.swift */,
+				73BC5E7D1B0FB8EF009C576E /* Response.swift */,
 				73BC5E7F1B0FD4C6009C576E /* Verb.swift */,
 				73BC5E811B0FD773009C576E /* Endpoint.swift */,
 				73BC5E831B10D519009C576E /* Internal */,
@@ -113,9 +115,8 @@
 		731E6CE31B093DEA00DBBB96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				731E6D0B1B093FB300DBBB96 /* FiniteGauntlet.framework */,
-				731E6CFD1B093E9000DBBB96 /* GCDAsyncSocket.h */,
-				731E6CFE1B093E9000DBBB96 /* GCDAsyncSocket.m */,
+				737A82C71C8B906B0026BEB0 /* Rebar.framework */,
+				737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */,
 				731E6CE41B093DEA00DBBB96 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -125,7 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				731E6D071B093EAF00DBBB96 /* ServerTests.swift */,
-				7317D3431B1244C400D0DC1B /* BodyResponseTests.swift */,
+				737A82CB1C8BE1EB0026BEB0 /* EndpointTests.swift */,
+				7317D3431B1244C400D0DC1B /* ResponseTests.swift */,
 				731E6CF01B093DEA00DBBB96 /* Supporting Files */,
 			);
 			path = PerfidyTests;
@@ -134,7 +136,6 @@
 		731E6CF01B093DEA00DBBB96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				731E6D0D1B093FBD00DBBB96 /* GroundFloor.framework */,
 				731E6CF11B093DEA00DBBB96 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -146,6 +147,8 @@
 				73BC5E7B1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift */,
 				731E6D021B093EA500DBBB96 /* HTTPConnection.swift */,
 				731E6D031B093EA500DBBB96 /* HTTPMessage.swift */,
+				731E6CFD1B093E9000DBBB96 /* GCDAsyncSocket.h */,
+				731E6CFE1B093E9000DBBB96 /* GCDAsyncSocket.m */,
 			);
 			name = Internal;
 			sourceTree = "<group>";
@@ -191,7 +194,6 @@
 				731E6CE71B093DEA00DBBB96 /* Sources */,
 				731E6CE81B093DEA00DBBB96 /* Frameworks */,
 				731E6CE91B093DEA00DBBB96 /* Resources */,
-				731E6D0A1B093EF700DBBB96 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -209,7 +211,9 @@
 		731E6CD71B093DEA00DBBB96 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0720;
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = MCMXCIX;
 				TargetAttributes = {
 					731E6CDF1B093DEA00DBBB96 = {
@@ -262,21 +266,8 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/FiniteGauntlet.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		731E6D0A1B093EF700DBBB96 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/GroundFloor.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Gauntlet.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Rebar.framework",
 			);
 			outputPaths = (
 			);
@@ -292,7 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				731E6D041B093EA500DBBB96 /* FakeServer.swift in Sources */,
-				73BC5E7E1B0FB8EF009C576E /* BodyResponse.swift in Sources */,
+				73BC5E7E1B0FB8EF009C576E /* Response.swift in Sources */,
 				73BC5E821B0FD773009C576E /* Endpoint.swift in Sources */,
 				731E6D061B093EA500DBBB96 /* HTTPMessage.swift in Sources */,
 				73BC5E7C1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift in Sources */,
@@ -306,7 +297,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7317D3441B1244C400D0DC1B /* BodyResponseTests.swift in Sources */,
+				7317D3441B1244C400D0DC1B /* ResponseTests.swift in Sources */,
+				737A82CC1C8BE1EB0026BEB0 /* EndpointTests.swift in Sources */,
 				731E6D081B093EAF00DBBB96 /* ServerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -344,6 +336,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -419,6 +412,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -426,6 +420,7 @@
 				INFOPLIST_FILE = Perfidy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mcmxcix.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -440,6 +435,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -447,6 +443,7 @@
 				INFOPLIST_FILE = Perfidy/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mcmxcix.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -455,17 +452,13 @@
 		731E6CFA1B093DEA00DBBB96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PerfidyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mcmxcix.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -473,13 +466,9 @@
 		731E6CFB1B093DEA00DBBB96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				INFOPLIST_FILE = PerfidyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mcmxcix.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
