@@ -77,7 +77,7 @@ class ServerTests: XCTestCase {
   func testDefaultStatusCodes(){
     let expectation = expectationWithDescription("should explicitly return 400 without specifying a response")
 
-    server = FakeServer(statusCode: 400)
+    server = FakeServer(defaultStatusCode: 400)
     try! server.start()
     sendRequest(){ res, data, error in
       if res.statusCode == 400{ expectation.fulfill() }

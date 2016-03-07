@@ -4,16 +4,16 @@ public class FakeServer : NSObject{
   public var callback = FakeServerCallbacks()
   public var requests = [NSURLRequest]()
   
-  private static let port = UInt16(10175) // Year of Paul Atreides's birth.
+  private let port: UInt16
+  private let defaultStatusCode:Int
   private var socket:GCDAsyncSocket!
   private var connections = [HTTPConnection]()
   private var endpointToResponseMap = [Endpoint: Response]()
-  private let defaultStatusCode:Int
 
   
-  
-  public init(statusCode:Int = 200){
-    defaultStatusCode = statusCode
+  public init(port: UInt16 = 10175, defaultStatusCode:Int = 200){
+    self.port = port
+    self.defaultStatusCode = defaultStatusCode
     super.init()
     self.socket = GCDAsyncSocket(delegate: self, delegateQueue: dispatch_get_main_queue())
   }
@@ -44,7 +44,7 @@ public extension FakeServer{
   
 
   public func start() throws {
-    try self.socket.acceptOnPort(FakeServer.port)
+    try self.socket.acceptOnPort(port)
   }
   
   
