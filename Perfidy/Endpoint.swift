@@ -1,8 +1,8 @@
 import Foundation
 
 public struct Endpoint{
-  let method: Verb
-  var path: String
+  private let method: Verb
+  private var path: String
 
   public init(method: Verb? = nil, path: String? = nil) {
     self.method = method ?? .GET

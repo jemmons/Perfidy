@@ -63,28 +63,17 @@ public extension FakeServer{
   }
   
   
-  public func requestsForPath(path:String)->[NSURLRequest]{
-    return requests.filter{ $0.URL?.path ?? "" == path }
+  public func didServeEndpoint(endpoint: Endpoint) -> Bool{
+    return requestsForEndpoint(endpoint).isNotEmpty
   }
   
-  public func countOfRequestsForPath(path:String)->Int{
-    return requestsForPath(path).count
-  }
-  
-  public func didServePath(path:String)->Bool{
-    return !requestsForPath(path).isEmpty
-  }
   
   public func requestsForEndpoint(endpoint:Endpoint)->[NSURLRequest]{
-    let requestsMatchingPath = requestsForPath(endpoint.path)
-    return requestsMatchingPath.filter{ $0.HTTPMethod ?? "" == endpoint.method.rawValue}
+    return requests.filter { Endpoint(method: $0.HTTPMethod, path: $0.URL?.path) == endpoint }
   }
+
   
   public func countOfRequestsForEndpoint(endpoint:Endpoint)->Int{
     return requestsForEndpoint(endpoint).count
-  }
-  
-  public func didServeEndpoint(endpoint:Endpoint)->Bool{
-    return !requestsForEndpoint(endpoint).isEmpty
   }
 }
