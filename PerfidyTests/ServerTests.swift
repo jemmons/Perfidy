@@ -123,6 +123,25 @@ class ServerTests: XCTestCase {
     
     waitForExpectationsWithTimeout(2.0, handler: nil)
   }
+  
+  
+  func testPostingData() {
+    let expectSent = expectationWithDescription("Sent data")
+
+    server.add(nil, endpoint:Endpoint(method: .POST, path: "/")){ req in
+      let body = String(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+      XCTAssertEqual(body, "foo")
+      expectSent.fulfill()
+    }
+    try! server.start()
+
+    let data = "foo".dataUsingEncoding(NSUTF8StringEncoding)!
+    let req = NSMutableURLRequest(URL: NSURL(string: "http://localhost:10175/")!)
+    req.HTTPMethod = "POST"
+    NSURLSession.sharedSession().uploadTaskWithRequest(req, fromData: data).resume()
+    
+    waitForExpectationsWithTimeout(2.0, handler: nil)
+  }
 }
 
 

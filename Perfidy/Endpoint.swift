@@ -13,6 +13,10 @@ public struct Endpoint{
   public init(method: String?, path: String?) {
     self.init(method: Verb(rawValue: method ?? ""), path: path)
   }
+  
+  init(request: NSURLRequest) {
+    self.init(method: request.HTTPMethod, path: request.URL?.path)
+  }
 }
 
 

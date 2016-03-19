@@ -5,7 +5,7 @@ import Rebar
 struct HTTPMessage{
   private let message:CFHTTPMessageRef
   var needsMoreHeader:Bool{
-    return CFHTTPMessageIsHeaderComplete(message)
+    return ❗️CFHTTPMessageIsHeaderComplete(message)
   }
   var needsBody:Bool{
     var hasFormType = false
@@ -23,7 +23,14 @@ struct HTTPMessage{
     return CFHTTPMessageCopyRequestURL(message)?.takeRetainedValue() as NSURL?
   }
   var headers:[String:String]?{
-    return CFHTTPMessageCopyAllHeaderFields(message)?.takeRetainedValue() as? [String : String]
+    guard let
+      cfdict = CFHTTPMessageCopyAllHeaderFields(message)?.takeRetainedValue() else {
+        return nil
+    }
+    //For whatever reason, it's essentially impossible to cast this «CFDictionary» into a «[String:String]» using «as». We have to do it manually.
+    return (cfdict as [NSObject:AnyObject]).mapPairs { key, value in
+      return (key as? String ?? "", value as? String ?? "")
+    }
   }
   var data:NSData?{
     return CFHTTPMessageCopySerializedMessage(message)?.takeRetainedValue()

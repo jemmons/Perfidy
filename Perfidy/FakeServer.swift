@@ -9,6 +9,7 @@ public class FakeServer : NSObject{
   private var socket:GCDAsyncSocket!
   private var connections = [HTTPConnection]()
   private var endpointToResponseMap = [Endpoint: Response]()
+  private var endpointToHandlerMap = Dictionary<Endpoint, (NSURLRequest)->Void>()
 
   
   public init(port: UInt16 = 10175, defaultStatusCode:Int = 200){
@@ -25,6 +26,7 @@ public class FakeServer : NSObject{
     connection.defaultStatusCode = defaultStatusCode
     connection.callback.whenFinishesRequest = {[unowned self] (req:NSURLRequest) in
       self.requests.append(req)
+      self.endpointToHandlerMap[Endpoint(request: req)]?(req)
     }
     connection.callback.whenNeedsResponseForEndpoint = {[unowned self](endpoint:Endpoint) in
       return self.endpointToResponseMap[endpoint]
@@ -53,8 +55,9 @@ public extension FakeServer{
   }
   
   
-  public func add(response: Response, endpoint: Endpoint) {
+  public func add(response: Response?, endpoint: Endpoint, handler: (NSURLRequest) -> Void = {_ in}) {
     endpointToResponseMap[endpoint] = response
+    endpointToHandlerMap[endpoint] = handler
   }
   
   
