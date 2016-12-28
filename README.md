@@ -1,6 +1,6 @@
 # Perfidy
 #### Fake service for iOS testing.
-[![Carthage compatible]()(https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Perfidy is tiny HTTP server written in Swift that you can spin up in your tests to fake out your API without hitting the network. This keeps your tests isolated and fast.
 
