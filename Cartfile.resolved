@@ -1,3 +1,3 @@
-github "jemmons/Gauntlet" "a92fe0d5d416ceddbfb91a64fcddde60f787065b"
+github "jemmons/Gauntlet" "v1.0"
 github "jemmons/Medea" "v0.1"
-github "reverbdotcom/rebar" "016b82a76452dbbf30cc5fee5df0dcd04a65a6cb"
+github "reverbdotcom/rebar" "v0.9"

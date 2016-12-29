@@ -16,6 +16,7 @@
 		731E6D051B093EA500DBBB96 /* HTTPConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D021B093EA500DBBB96 /* HTTPConnection.swift */; };
 		731E6D061B093EA500DBBB96 /* HTTPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D031B093EA500DBBB96 /* HTTPMessage.swift */; };
 		731E6D081B093EAF00DBBB96 /* ServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D071B093EAF00DBBB96 /* ServerTests.swift */; };
+		73407A981E1574ED00A121DF /* Rebar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73407A971E1574ED00A121DF /* Rebar.framework */; };
 		737A82C41C8B8B9C0026BEB0 /* Gauntlet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */; };
 		737A82CC1C8BE1EB0026BEB0 /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A82CB1C8BE1EB0026BEB0 /* EndpointTests.swift */; };
 		73BC5E7E1B0FB8EF009C576E /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7D1B0FB8EF009C576E /* Response.swift */; };
@@ -51,6 +52,7 @@
 		731E6D021B093EA500DBBB96 /* HTTPConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPConnection.swift; sourceTree = "<group>"; };
 		731E6D031B093EA500DBBB96 /* HTTPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMessage.swift; sourceTree = "<group>"; };
 		731E6D071B093EAF00DBBB96 /* ServerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTests.swift; sourceTree = "<group>"; };
+		73407A971E1574ED00A121DF /* Rebar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rebar.framework; path = Carthage/Build/iOS/Rebar.framework; sourceTree = "<group>"; };
 		737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gauntlet.framework; path = Carthage/Build/iOS/Gauntlet.framework; sourceTree = SOURCE_ROOT; };
 		737A82CB1C8BE1EB0026BEB0 /* EndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
 		73BC5E7D1B0FB8EF009C576E /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 			files = (
 				737A82C41C8B8B9C0026BEB0 /* Gauntlet.framework in Frameworks */,
 				73BE034F1E146D1700002A8D /* Medea.framework in Frameworks */,
+				73407A981E1574ED00A121DF /* Rebar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,6 +165,7 @@
 		73BE034D1E146D1700002A8D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				73407A971E1574ED00A121DF /* Rebar.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -284,6 +288,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Gauntlet.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Medea.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Rebar.framework",
 			);
 			outputPaths = (
 			);

@@ -14,6 +14,30 @@ class EndpointTests: XCTestCase {
   }
   
   
+  func testStringLiteral() {
+    var subject: Endpoint = "GET /foo"
+    XCTAssertEqual(subject, Endpoint(method: .get, path: "/foo"))
+    
+    subject = "/foo"
+    XCTAssertEqual(subject, Endpoint(method: .get, path: "/foo"))
+
+    subject = "foo"
+    XCTAssertEqual(subject, Endpoint(method: .get, path: "/foo"))
+    
+    subject = "HEAD"
+    XCTAssertEqual(subject, Endpoint(method: .head, path: "/"))
+    
+    subject = "head"
+    XCTAssertEqual(subject, Endpoint(method: .head, path: "/"))
+    
+    subject = "HEAD   foo bar/baz"
+    XCTAssertEqual(subject, Endpoint(method: .head, path: "/foo+bar/baz"))
+
+    subject = ""
+    XCTAssertEqual(Endpoint(), Endpoint(method: .get, path: "/"))
+  }
+  
+  
   func testDefaults() {
     XCTAssertEqual(Endpoint(), Endpoint(method: .get, path: "/"))
     XCTAssertEqual(Endpoint(method: nil as Verb?, path: nil), Endpoint(method: .get, path: "/"))

@@ -38,10 +38,10 @@ class ServerTests: XCTestCase {
     let expect800 = expectation(description: "Nonexistant status code")
     
     whileServer { server in
-      server.add(201, endpoint: "/201")
-      server.add(300, endpoint: "/300")
-      server.add(400, endpoint: "/400")
-      server.add(800, endpoint: "/800")
+      server.add("/201", response: 201)
+      server.add("/300", response: 300)
+      server.add("/400", response: 400)
+      server.add("/800", response: 800)
     
       sendRequest("/foo/bar"){ res, _, _ in
         if res?.statusCode == 200 { expect200.fulfill() }
@@ -89,7 +89,7 @@ class ServerTests: XCTestCase {
 
     whileServer { server in
       let res = try! Response(status: 201, rawJSON:"{\"thing\":42}")
-      server.add(res, endpoint:"/foo")
+      server.add("/foo", response: res)
 
       sendRequest("/foo"){ res, data, error in
         let json = try! JSONHelper.json(from: data!)
@@ -109,7 +109,7 @@ class ServerTests: XCTestCase {
     
     whileServer { server in
       let res = try! Response(status: 202, json:["fred":"barney"])
-      server.add(res, endpoint:"/foo/bar/baz")
+      server.add("/foo/bar/baz", response: res)
 
       sendRequest("/foo/bar/baz"){ res, data, error in
         let json = try! JSONHelper.json(from: data!)
@@ -128,7 +128,7 @@ class ServerTests: XCTestCase {
     let expectSent = expectation(description: "Sent data")
 
     whileServer { server in
-      server.add(nil, endpoint:Endpoint(method: .post, path: "/")){ req in
+      server.add("POST /"){ req in
         let body = String(data: req.httpBody!, encoding: .utf8)
         XCTAssertEqual(body, "foo")
         expectSent.fulfill()
