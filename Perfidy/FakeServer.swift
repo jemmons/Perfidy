@@ -9,8 +9,8 @@ public class FakeServer : NSObject{
 
   fileprivate var socket:GCDAsyncSocket!
   fileprivate var connections = [HTTPConnection]()
-  fileprivate var endpointToResponseMap = Dictionary<Endpoint, Response>()
-  fileprivate var endpointToHandlerMap = Dictionary<Endpoint, (URLRequest)->Void>()
+  fileprivate var routeToResponseMap = Dictionary<Route, Response>()
+  fileprivate var routeToHandlerMap = Dictionary<Route, (URLRequest)->Void>()
 
   
   public init(port: UInt16 = 10175, defaultStatusCode: Int = 200){
@@ -46,42 +46,42 @@ public extension FakeServer{
   
   func stop(){
     socket.disconnect()
-    endpointToResponseMap = [:]
-    endpointToHandlerMap = [:]
+    routeToResponseMap = [:]
+    routeToHandlerMap = [:]
     requests = []
   }
   
   
-  func add(_ endpoint: Endpoint, response: Response? = nil, handler: @escaping (URLRequest) -> Void = {_ in}) {
-    endpointToResponseMap[endpoint] = response
-    endpointToHandlerMap[endpoint] = handler
+  func add(_ route: Route, response: Response? = nil, handler: @escaping (URLRequest) -> Void = {_ in}) {
+    routeToResponseMap[route] = response
+    routeToHandlerMap[route] = handler
   }
   
   
-  func add(_ endpointsAndResponses: [(endpoint: Endpoint, response: Response)]) {
-    endpointsAndResponses.forEach { add($0.endpoint, response:$0.response) }
+  func add(_ routesAndResponses: [(route: Route, response: Response)]) {
+    routesAndResponses.forEach { add($0.route, response: $0.response) }
   }
   
   
-  func add(_ endpoints: [Endpoint]) {
-    endpoints.forEach {
+  func add(_ routes: [Route]) {
+    routes.forEach {
       add($0)
     }
   }
   
   
-  func requestsForEndpoint(_ endpoint:Endpoint) -> [URLRequest] {
-    return requests.filter { Endpoint(method: $0.httpMethod, path: $0.url?.path) == endpoint }
+  func requestsForRoute(_ route: Route) -> [URLRequest] {
+    return requests.filter { Route(method: $0.httpMethod, path: $0.url?.path) == route }
   }
 
   
-  func countOfRequestsForEndpoint(_ endpoint:Endpoint)->Int{
-    return requestsForEndpoint(endpoint).count
+  func countOfRequestsForRoute(_ route: Route)->Int{
+    return requestsForRoute(route).count
   }
   
   
-  func didRequestEndpoint(_ endpoint: Endpoint) -> Bool {
-    let empty = requestsForEndpoint(endpoint).isEmpty
+  func didRequestRoute(_ route: Route) -> Bool {
+    let empty = requestsForRoute(route).isEmpty
     return !empty
   }
 }
@@ -94,10 +94,10 @@ extension FakeServer: GCDAsyncSocketDelegate {
     connection.defaultStatusCode = defaultStatusCode
     connection.callback.whenFinishesRequest = {[unowned self] (req:URLRequest) in
       self.requests.append(req)
-      self.endpointToHandlerMap[Endpoint(request: req)]?(req)
+      self.routeToHandlerMap[Route(request: req)]?(req)
     }
-    connection.callback.whenNeedsResponseForEndpoint = {[unowned self](endpoint:Endpoint) in
-      return self.endpointToResponseMap[endpoint]
+    connection.callback.whenNeedsResponseForRoute = {[unowned self](route: Route) in
+      return self.routeToResponseMap[route]
     }
     connection.callback.whenFinishesResponse = {[unowned self, unowned connection] in
       if let i = self.connections.index(of: connection) {

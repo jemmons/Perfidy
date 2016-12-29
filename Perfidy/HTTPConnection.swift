@@ -13,7 +13,7 @@ internal class HTTPConnection : NSObject {
   internal struct HTTPConnectionCallbacks{
     var whenFinishesRequest: ((_ req:URLRequest)->Void)?
     var whenFinishesResponse: (()->Void)?
-    var whenNeedsResponseForEndpoint: ((Endpoint)->Response?)?
+    var whenNeedsResponseForRoute: ((Route)->Response?)?
   }
   internal var callback = HTTPConnectionCallbacks()
   internal var defaultStatusCode = 200
@@ -43,9 +43,9 @@ private extension HTTPConnection{
   
   
   func respondToMessage(_ message:HTTPMessage){
-    let endpoint = Endpoint(method: message.method, path: message.url?.path)
+    let route = Route(method: message.method, path: message.url?.path)
     //Not only is the callback optional, but it can return a nil response.
-    let response = callback.whenNeedsResponseForEndpoint?(endpoint) ?? Response(status: defaultStatusCode, data: nil)
+    let response = callback.whenNeedsResponseForRoute?(route) ?? Response(status: defaultStatusCode, data: nil)
     machine.queue(.writingResponse(HTTPMessage(response: response)))
   }
   

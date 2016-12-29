@@ -1,7 +1,7 @@
 import Foundation
 import Rebar
 
-public struct Endpoint{
+public struct Route{
   fileprivate let method: Verb
   fileprivate var path: String
 
@@ -22,7 +22,7 @@ public struct Endpoint{
 
 
 
-extension Endpoint: Hashable{
+extension Route: Hashable{
   public var hashValue:Int{
     return path.hashValue ^ method.hashValue
   }
@@ -30,7 +30,7 @@ extension Endpoint: Hashable{
 
 
 
-extension Endpoint: CustomStringConvertible {
+extension Route: CustomStringConvertible {
   public var description: String {
     return "\(method.rawValue) \(path)"
   }
@@ -38,7 +38,7 @@ extension Endpoint: CustomStringConvertible {
 
 
 
-extension Endpoint: ExpressibleByStringLiteral {
+extension Route: ExpressibleByStringLiteral {
   public init(stringLiteral value: String) {
     let (method, path) = Helper.methodAndPath(from: value)
     self.init(method: method, path: path)
@@ -82,6 +82,6 @@ fileprivate enum Helper {
 
 
 
-public func ==(lhs: Endpoint, rhs: Endpoint) -> Bool {
+public func ==(lhs: Route, rhs: Route) -> Bool {
   return lhs.method == rhs.method && lhs.path == rhs.path
 }
