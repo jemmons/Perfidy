@@ -2,54 +2,54 @@ import Foundation
 import XCTest
 import Perfidy
 
+
+
 class ResponseTests : XCTestCase{
-  struct K {
-    static let lengthKey = "Content-Length"
-    static let typeKey = "Content-Type"
-  }
+  let lengthKey = "Content-Length"
+  let typeKey = "Content-Type"
   
   
   func testNoContent(){
     let subject = Response()
     XCTAssertNil(subject.body)
-    XCTAssert(subject.headers[K.lengthKey] == nil)
-    XCTAssert(subject.headers[K.typeKey] == nil)
+    XCTAssert(subject.headers[lengthKey] == nil)
+    XCTAssert(subject.headers[typeKey] == nil)
   }
 
   
   func testWithTextHTML() {
     let text = "foo"
     let subject = Response(text:text)
-    XCTAssertEqual(subject.body, text.dataUsingEncoding(NSUTF8StringEncoding))
-    XCTAssertEqual(subject.headers[K.lengthKey], "3")
-    XCTAssertEqual(subject.headers[K.typeKey], "text/html")
+    XCTAssertEqual(subject.body, text.data(using: .utf8))
+    XCTAssertEqual(subject.headers[lengthKey], "3")
+    XCTAssertEqual(subject.headers[typeKey], "text/html")
   }
   
   
   func testRawJSON() {
     let subject = try! Response(rawJSON: "{\"foo\"   :  \"bar\"  \n    }")
-    XCTAssertEqual(String(data: subject.body!, encoding: NSUTF8StringEncoding), "{\"foo\":\"bar\"}")
-    XCTAssertEqual(subject.headers[K.lengthKey], "13")
-    XCTAssertEqual(subject.headers[K.typeKey], "application/json")
+    XCTAssertEqual(String(data: subject.body!, encoding: String.Encoding.utf8), "{\"foo\":\"bar\"}")
+    XCTAssertEqual(subject.headers[lengthKey], "13")
+    XCTAssertEqual(subject.headers[typeKey], "application/json")
   }
   
   
   func testInvalidRawJSON() {
+    let shouldThrow = expectation(description: "Should throw")
     do {
       let _ = try Response(rawJSON: "clearly not json")
     } catch {
-      XCTAssert(true)
-      return
+      shouldThrow.fulfill()
     }
-    XCTFail()
+    waitForExpectations(timeout: 0.2, handler: nil)
   }
   
   
   func testJSON() {
     let subject = try! Response(json: ["foo":"bar"])
-    XCTAssertEqual(String(data: subject.body!, encoding: NSUTF8StringEncoding), "{\"foo\":\"bar\"}")
-    XCTAssertEqual(subject.headers[K.lengthKey], "13")
-    XCTAssertEqual(subject.headers[K.typeKey], "application/json")
+    XCTAssertEqual(String(data: subject.body!, encoding: String.Encoding.utf8), "{\"foo\":\"bar\"}")
+    XCTAssertEqual(subject.headers[lengthKey], "13")
+    XCTAssertEqual(subject.headers[typeKey], "application/json")
   }
   
   
@@ -66,10 +66,10 @@ class ResponseTests : XCTestCase{
   
   
   func testContentHeaderOverride(){
-    let headers = [K.lengthKey:"42", K.typeKey:"foo/bar"]
+    let headers = [lengthKey:"42", typeKey:"foo/bar"]
     let subject = Response(headers: headers, text:"foo")
-    XCTAssertEqual(subject.headers[K.lengthKey], "42")
-    XCTAssertEqual(subject.headers[K.typeKey], "foo/bar")
+    XCTAssertEqual(subject.headers[lengthKey], "42")
+    XCTAssertEqual(subject.headers[typeKey], "foo/bar")
   }
   
   
@@ -82,16 +82,16 @@ class ResponseTests : XCTestCase{
   
   func testTextLiteral() {
     let subject: Response = "This is a test."
-    XCTAssertEqual(subject.body, "This is a test.".dataUsingEncoding(NSUTF8StringEncoding))
-    XCTAssertEqual(subject.headers[K.lengthKey], "15")
-    XCTAssertEqual(subject.headers[K.typeKey], "text/html")
+    XCTAssertEqual(subject.body, "This is a test.".data(using: .utf8))
+    XCTAssertEqual(subject.headers[lengthKey], "15")
+    XCTAssertEqual(subject.headers[typeKey], "text/html")
   }
   
   
   func testJSONLiteral() {
     let subject: Response = ["foo":"bar"]
-    XCTAssertEqual(String(data: subject.body!, encoding: NSUTF8StringEncoding), "{\"foo\":\"bar\"}")
-    XCTAssertEqual(subject.headers[K.lengthKey], "13")
-    XCTAssertEqual(subject.headers[K.typeKey], "application/json")
+    XCTAssertEqual(String(data: subject.body!, encoding: String.Encoding.utf8), "{\"foo\":\"bar\"}")
+    XCTAssertEqual(subject.headers[lengthKey], "13")
+    XCTAssertEqual(subject.headers[typeKey], "application/json")
   }
 }

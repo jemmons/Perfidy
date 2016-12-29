@@ -1,66 +1,94 @@
 import Foundation
-import Rebar
+
 
 
 struct HTTPMessage{
-  private let message:CFHTTPMessageRef
+  private let message:CFHTTPMessage
+
+  
   var needsMoreHeader:Bool{
-    return ❗️CFHTTPMessageIsHeaderComplete(message)
+    let headerComplete = CFHTTPMessageIsHeaderComplete(message)
+    return !headerComplete
   }
+  
+  
   var needsBody:Bool{
     var hasFormType = false
     var hasJSONType = false
     if let contentType = headers?["Content-Type"]{
-      hasFormType = contentType.containsString("application/x-www-form-urlencoded")
-      hasJSONType = contentType.containsString("application/json")
+      hasFormType = contentType.contains("application/x-www-form-urlencoded")
+      hasJSONType = contentType.contains("application/json")
     }
     return (hasFormType || hasJSONType) && contentLength > 0
   }
+  
+  
   var method:String?{
     return CFHTTPMessageCopyRequestMethod(message)?.takeRetainedValue() as String?
   }
-  var url:NSURL?{
-    return CFHTTPMessageCopyRequestURL(message)?.takeRetainedValue() as NSURL?
+  
+  
+  var url:URL?{
+    return CFHTTPMessageCopyRequestURL(message)?.takeRetainedValue() as URL?
   }
+  
+  
   var headers:[String:String]?{
     guard let
       cfdict = CFHTTPMessageCopyAllHeaderFields(message)?.takeRetainedValue() else {
         return nil
     }
-    //For whatever reason, it's essentially impossible to cast this «CFDictionary» into a «[String:String]» using «as». We have to do it manually.
-    return (cfdict as [NSObject:AnyObject]).mapPairs { key, value in
-      return (key as? String ?? "", value as? String ?? "")
-    }
+    return cfdict as? [String: String]
   }
-  var data:NSData?{
-    return CFHTTPMessageCopySerializedMessage(message)?.takeRetainedValue()
+  
+  
+  var data:Data?{
+    return CFHTTPMessageCopySerializedMessage(message)?.takeRetainedValue() as Data?
   }
+  
+  
   var contentLength:Int{
     guard let
       _lengthString = headers?["Content-Length"],
-      length = Int(_lengthString) else{
+      let length = Int(_lengthString) else{
         return 0
     }
     return length
   }
-  var body:NSData?{
-    return CFHTTPMessageCopyBody(message)?.takeRetainedValue() as NSData?
+  
+  
+  var body:Data?{
+    return CFHTTPMessageCopyBody(message)?.takeRetainedValue() as Data?
   }
+  
+  
   var bodyString:String?{
     switch body{
-    case .Some(let data):
-      return NSString(data:data , encoding:NSUTF8StringEncoding) as? String
-    case .None:
+    case .some(let data):
+      return NSString(data:data , encoding:String.Encoding.utf8.rawValue) as? String
+    case .none:
       return nil
     }
   }
-  var request:NSURLRequest{
-    return NSURLRequest.requestWithMessage(message)
+  
+  
+  var request: URLRequest{
+    //The new URLRequest struct oddly requires we initialize it with a URL.
+    var req = URLRequest(url: URL(string: "example.com")!)
+    req.url = CFHTTPMessageCopyRequestURL(message)?.takeRetainedValue() as URL?
+
+    if let body = CFHTTPMessageCopyBody(message) {
+      req.httpBody = body.takeRetainedValue() as Data
+    }
+    if let method = CFHTTPMessageCopyRequestMethod(message) {
+      req.httpMethod = method.takeRetainedValue() as String
+    }
+    return req
   }
   
   
   init(){
-    message = CFHTTPMessageCreateEmpty(nil, yes).takeRetainedValue()
+    message = CFHTTPMessageCreateEmpty(nil, true).takeRetainedValue()
   }
   
   
@@ -75,7 +103,7 @@ struct HTTPMessage{
   }
   
   
-  func append(data:NSData){
-    CFHTTPMessageAppendBytes(message, unsafeBitCast(data.bytes, UnsafePointer<UInt8>.self), data.length)
+  func append(_ data:Data){
+    CFHTTPMessageAppendBytes(message, unsafeBitCast((data as NSData).bytes, to: UnsafePointer<UInt8>.self), data.count)
   }
 }

@@ -17,12 +17,12 @@
 		731E6D061B093EA500DBBB96 /* HTTPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D031B093EA500DBBB96 /* HTTPMessage.swift */; };
 		731E6D081B093EAF00DBBB96 /* ServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D071B093EAF00DBBB96 /* ServerTests.swift */; };
 		737A82C41C8B8B9C0026BEB0 /* Gauntlet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */; };
-		737A82C81C8B906B0026BEB0 /* Rebar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A82C71C8B906B0026BEB0 /* Rebar.framework */; };
 		737A82CC1C8BE1EB0026BEB0 /* EndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A82CB1C8BE1EB0026BEB0 /* EndpointTests.swift */; };
-		73BC5E7C1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7B1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift */; };
 		73BC5E7E1B0FB8EF009C576E /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7D1B0FB8EF009C576E /* Response.swift */; };
 		73BC5E801B0FD4C6009C576E /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7F1B0FD4C6009C576E /* Verb.swift */; };
 		73BC5E821B0FD773009C576E /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E811B0FD773009C576E /* Endpoint.swift */; };
+		73BE034F1E146D1700002A8D /* Medea.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BE034E1E146D1700002A8D /* Medea.framework */; };
+		73BE03501E14B8EB00002A8D /* Medea.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BE034E1E146D1700002A8D /* Medea.framework */; };
 		73FA36D71C947903009AF84D /* TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FA36D61C947903009AF84D /* TestTests.swift */; };
 		73FA36D91C947962009AF84D /* FormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FA36D81C947962009AF84D /* FormController.swift */; };
 /* End PBXBuildFile section */
@@ -52,12 +52,11 @@
 		731E6D031B093EA500DBBB96 /* HTTPMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMessage.swift; sourceTree = "<group>"; };
 		731E6D071B093EAF00DBBB96 /* ServerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTests.swift; sourceTree = "<group>"; };
 		737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gauntlet.framework; path = Carthage/Build/iOS/Gauntlet.framework; sourceTree = SOURCE_ROOT; };
-		737A82C71C8B906B0026BEB0 /* Rebar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Rebar.framework; path = Carthage/Build/iOS/Rebar.framework; sourceTree = SOURCE_ROOT; };
 		737A82CB1C8BE1EB0026BEB0 /* EndpointTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointTests.swift; sourceTree = "<group>"; };
-		73BC5E7B1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLRequest+CFNetworking.swift"; sourceTree = "<group>"; };
 		73BC5E7D1B0FB8EF009C576E /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		73BC5E7F1B0FD4C6009C576E /* Verb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
 		73BC5E811B0FD773009C576E /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		73BE034E1E146D1700002A8D /* Medea.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Medea.framework; path = ../Carthage/Build/iOS/Medea.framework; sourceTree = "<group>"; };
 		73FA36D61C947903009AF84D /* TestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTests.swift; sourceTree = "<group>"; };
 		73FA36D81C947962009AF84D /* FormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,7 +67,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				737A82C41C8B8B9C0026BEB0 /* Gauntlet.framework in Frameworks */,
-				737A82C81C8B906B0026BEB0 /* Rebar.framework in Frameworks */,
+				73BE034F1E146D1700002A8D /* Medea.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +76,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				731E6CEC1B093DEA00DBBB96 /* Perfidy.framework in Frameworks */,
+				73BE03501E14B8EB00002A8D /* Medea.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +90,7 @@
 				731E6CEF1B093DEA00DBBB96 /* PerfidyTests */,
 				731E6CE11B093DEA00DBBB96 /* Products */,
 				731E6CFC1B093E5900DBBB96 /* Cartfile */,
+				73BE034D1E146D1700002A8D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -119,7 +120,7 @@
 		731E6CE31B093DEA00DBBB96 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				737A82C71C8B906B0026BEB0 /* Rebar.framework */,
+				73BE034E1E146D1700002A8D /* Medea.framework */,
 				737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */,
 				731E6CE41B093DEA00DBBB96 /* Info.plist */,
 			);
@@ -150,13 +151,19 @@
 		73BC5E831B10D519009C576E /* Internal */ = {
 			isa = PBXGroup;
 			children = (
-				73BC5E7B1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift */,
 				731E6D021B093EA500DBBB96 /* HTTPConnection.swift */,
 				731E6D031B093EA500DBBB96 /* HTTPMessage.swift */,
 				731E6CFD1B093E9000DBBB96 /* GCDAsyncSocket.h */,
 				731E6CFE1B093E9000DBBB96 /* GCDAsyncSocket.m */,
 			);
 			name = Internal;
+			sourceTree = "<group>";
+		};
+		73BE034D1E146D1700002A8D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,6 +207,7 @@
 				731E6CE71B093DEA00DBBB96 /* Sources */,
 				731E6CE81B093DEA00DBBB96 /* Frameworks */,
 				731E6CE91B093DEA00DBBB96 /* Resources */,
+				73BE03511E14B8F300002A8D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -219,14 +227,16 @@
 			attributes = {
 				LastSwiftMigration = 0720;
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = MCMXCIX;
 				TargetAttributes = {
 					731E6CDF1B093DEA00DBBB96 = {
 						CreatedOnToolsVersion = 6.3.1;
+						LastSwiftMigration = 0820;
 					};
 					731E6CEA1B093DEA00DBBB96 = {
 						CreatedOnToolsVersion = 6.3.1;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -273,7 +283,21 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Gauntlet.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Rebar.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Medea.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		73BE03511E14B8F300002A8D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Medea.framework",
 			);
 			outputPaths = (
 			);
@@ -292,7 +316,6 @@
 				73BC5E7E1B0FB8EF009C576E /* Response.swift in Sources */,
 				73BC5E821B0FD773009C576E /* Endpoint.swift in Sources */,
 				731E6D061B093EA500DBBB96 /* HTTPMessage.swift in Sources */,
-				73BC5E7C1B0FB19E009C576E /* NSURLRequest+CFNetworking.swift in Sources */,
 				73BC5E801B0FD4C6009C576E /* Verb.swift in Sources */,
 				731E6D051B093EA500DBBB96 /* HTTPConnection.swift in Sources */,
 				731E6D001B093E9000DBBB96 /* GCDAsyncSocket.m in Sources */,
@@ -335,8 +358,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -360,7 +385,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -384,8 +409,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -402,9 +429,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -416,6 +444,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -432,6 +461,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -439,6 +469,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -454,30 +485,41 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mcmxcix.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
 		731E6CFA1B093DEA00DBBB96 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PerfidyTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mcmxcix.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		731E6CFB1B093DEA00DBBB96 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = PerfidyTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mcmxcix.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

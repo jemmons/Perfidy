@@ -1,2 +1,3 @@
-github "jemmons/Gauntlet"
-github "reverbdotcom/Rebar"
+github "reverbdotcom/rebar" "swift3"
+github "jemmons/Gauntlet" "swift3"
+github "jemmons/Medea"

@@ -6,39 +6,39 @@ class MockForm {
   var age: Int?
   
   func fetch(){
-    NSURLSession.sharedSession().dataTaskWithURL(NSURL(string: "http://localhost:10175/form")!) { data, response, error in
+    URLSession.shared.dataTask(with: URL(string: "http://localhost:10175/form")!, completionHandler: { data, response, error in
       guard error == nil else {
         self.fillWithJSON([:])
         return
       }
-      let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: []) as! [NSObject:AnyObject]
+      let json = try! JSONSerialization.jsonObject(with: data!, options: []) as! [AnyHashable: Any]
       self.fillWithJSON(json)
-    }.resume()
+    }) .resume()
   }
   
   
   func save(){
-    var json = [NSObject:AnyObject]()
+    var json = [AnyHashable: Any]()
     json["first_name"] = "first"//firstName
     json["last_name"] = "last"//lastName
     json["age"] = "55"//age
-    let data = try! NSJSONSerialization.dataWithJSONObject(json, options: [])
-    let req = NSMutableURLRequest(URL: NSURL(string: "http://localhost:10175/form")!)
-    req.HTTPMethod = "POST"
-    NSURLSession.sharedSession().uploadTaskWithRequest(req, fromData: data).resume()
+    let data = try! JSONSerialization.data(withJSONObject: json, options: [])
+    var req = URLRequest(url: URL(string: "http://localhost:10175/form")!)
+    req.httpMethod = "POST"
+    URLSession.shared.uploadTask(with: req, from: data).resume()
   }
 }
 
 
 private extension MockForm {
-  func fillWithJSON(json: [NSObject:AnyObject]) {
+  func fillWithJSON(_ json: [AnyHashable: Any]) {
     firstName = castJSON(json, forKey: "first_name")
     lastName = castJSON(json, forKey: "last_name")
     age = castJSON(json, forKey: "age")
   }
   
   
-  func castJSON<T>(json: [NSObject:AnyObject], forKey key: String) -> T? {
+  func castJSON<T>(_ json: [AnyHashable: Any], forKey key: String) -> T? {
     return json[key] as? T
   }
 }

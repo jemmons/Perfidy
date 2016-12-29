@@ -1,21 +1,21 @@
 import Foundation
 
 public struct Endpoint{
-  private let method: Verb
-  private var path: String
+  fileprivate let method: Verb
+  fileprivate var path: String
 
   public init(method: Verb? = nil, path: String? = nil) {
-    self.method = method ?? .GET
+    self.method = method ?? .get
     self.path = path ?? "/"
   }
   
   
   public init(method: String?, path: String?) {
-    self.init(method: Verb(rawValue: method ?? ""), path: path)
+    self.init(method: Verb(rawValue: method ?? "🚫"), path: path)
   }
   
-  init(request: NSURLRequest) {
-    self.init(method: request.HTTPMethod, path: request.URL?.path)
+  init(request: URLRequest) {
+    self.init(method: request.httpMethod, path: request.url?.path)
   }
 }
 
@@ -37,30 +37,31 @@ extension Endpoint: CustomStringConvertible {
 
 
 
-extension Endpoint: StringLiteralConvertible {
-  private static func pathFromString(string:String) -> String {
-    let path = string.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLPathAllowedCharacterSet())?.stringByReplacingOccurrencesOfString("%20", withString: "+") ?? "/"
-    guard path.hasPrefix("/") else {
-      return "/\(path)"
-    }
-    return path
-  }
-
-  
+extension Endpoint: ExpressibleByStringLiteral {
   public init(stringLiteral value: String) {
-    self.init(path: Endpoint.pathFromString(value))
+    self.init(path: Helper.pathFromString(value))
   }
   
   
   public init(unicodeScalarLiteral value: String){
-    self.init(path: Endpoint.pathFromString(value))
+    self.init(path: Helper.pathFromString(value))
   }
   
   
   public init(extendedGraphemeClusterLiteral value: String){
-    self.init(path: Endpoint.pathFromString(value))
+    self.init(path: Helper.pathFromString(value))
   }
 }
+
+
+
+fileprivate enum Helper {
+  fileprivate static func pathFromString(_ string:String) -> String {
+    let path = string.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed)?.replacingOccurrences(of: "%20", with: "+") ?? "/"
+    return path.hasPrefix("/") ? path : "/" + path
+  }
+}
+
 
 
 public func ==(lhs: Endpoint, rhs: Endpoint) -> Bool {

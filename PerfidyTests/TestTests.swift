@@ -1,6 +1,7 @@
 import Foundation
 import XCTest
 import Perfidy
+import Medea
 
 class TestTests: XCTestCase {
   let server = FakeServer()
@@ -15,15 +16,15 @@ class TestTests: XCTestCase {
   
   
   func testSaveForm() {
-    let expectSave = expectationWithDescription("Saved")
-    server.add(nil, endpoint: Endpoint(method: .POST, path: "/form")) { req in
-      let jsonData = try! NSJSONSerialization.dataWithJSONObject(["first_name": "first","last_name": "last","age": "55",], options: [])
-      XCTAssertEqual(req.HTTPBody, jsonData)
+    let expectSave = expectation(description: "Saved")
+    server.add(nil, endpoint: Endpoint(method: .post, path: "/form")) { req in
+      let jsonData = try! JSONHelper.data(from: ["first_name": "first","last_name": "last","age": "55"])
+      XCTAssertEqual(req.httpBody, jsonData)
       expectSave.fulfill()
     }
     try! server.start()
     let subject = MockForm()
     subject.save()
-    waitForExpectationsWithTimeout(200, handler: nil)
+    waitForExpectations(timeout: 2.0, handler: nil)
   }
 }

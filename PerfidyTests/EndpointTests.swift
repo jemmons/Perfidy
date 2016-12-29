@@ -5,28 +5,28 @@ import Perfidy
 
 class EndpointTests: XCTestCase {
   func testEquality() {
-    XCTAssertEqual(Endpoint(method: .GET, path: "/foo"), Endpoint(method: .GET, path: "/foo"))
-    XCTAssertEqual(Endpoint(method: .HEAD, path: "/foo"), Endpoint(method: .HEAD, path: "/foo"))
-    XCTAssertEqual(Endpoint(method: .GET, path: "/bar"), Endpoint(method: .GET, path: "/bar"))
-    XCTAssertNotEqual(Endpoint(method: .GET, path: "/foo"), Endpoint(method: .GET, path: "/bar"))
-    XCTAssertNotEqual(Endpoint(method: .GET, path: "/foo"), Endpoint(method: .HEAD, path: "/foo"))
-    XCTAssertNotEqual(Endpoint(method: .GET, path: "/foo"), Endpoint(method: .HEAD, path: "/bar"))
+    XCTAssertEqual(Endpoint(method: .get, path: "/foo"), Endpoint(method: .get, path: "/foo"))
+    XCTAssertEqual(Endpoint(method: .head, path: "/foo"), Endpoint(method: .head, path: "/foo"))
+    XCTAssertEqual(Endpoint(method: .get, path: "/bar"), Endpoint(method: .get, path: "/bar"))
+    XCTAssertNotEqual(Endpoint(method: .get, path: "/foo"), Endpoint(method: .get, path: "/bar"))
+    XCTAssertNotEqual(Endpoint(method: .get, path: "/foo"), Endpoint(method: .head, path: "/foo"))
+    XCTAssertNotEqual(Endpoint(method: .get, path: "/foo"), Endpoint(method: .head, path: "/bar"))
   }
   
   
   func testDefaults() {
-    XCTAssertEqual(Endpoint(), Endpoint(method: .GET, path: "/"))
-    XCTAssertEqual(Endpoint(method: Optional<Verb>(), path: nil), Endpoint(method: .GET, path: "/"))
-    XCTAssertEqual(Endpoint(method: Optional<String>(), path: nil), Endpoint(method: .GET, path: "/"))
+    XCTAssertEqual(Endpoint(), Endpoint(method: .get, path: "/"))
+    XCTAssertEqual(Endpoint(method: nil as Verb?, path: nil), Endpoint(method: .get, path: "/"))
+    XCTAssertEqual(Endpoint(method: nil as String?, path: nil), Endpoint(method: .get, path: "/"))
   }
   
   
   func testDescription() {
-    XCTAssertEqual(Endpoint(method: .GET, path: "/foo").description, "GET /foo")
+    XCTAssertEqual(Endpoint(method: .get, path: "/foo").description, "GET /foo")
   }
   
   
   func testStringLiteralConvertible() {
-    XCTAssertEqual("/foo/bar", Endpoint(method: .GET, path: "/foo/bar"))
+    XCTAssertEqual("/foo/bar", Endpoint(method: .get, path: "/foo/bar"))
   }
 }

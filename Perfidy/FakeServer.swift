@@ -2,29 +2,32 @@ import Foundation
 
 public class FakeServer : NSObject{
   public var callback = FakeServerCallbacks()
-  public var requests = [NSURLRequest]()
+  public var requests = [URLRequest]()
   
-  private let port: UInt16
-  private let defaultStatusCode:Int
-  private var socket:GCDAsyncSocket!
-  private var connections = [HTTPConnection]()
-  private var endpointToResponseMap = [Endpoint: Response]()
-  private var endpointToHandlerMap = Dictionary<Endpoint, (NSURLRequest)->Void>()
+  fileprivate let port: UInt16
+  fileprivate let defaultStatusCode:Int
+
+  fileprivate var socket:GCDAsyncSocket!
+  fileprivate var connections = [HTTPConnection]()
+  fileprivate var endpointToResponseMap = Dictionary<Endpoint, Response>()
+  fileprivate var endpointToHandlerMap = Dictionary<Endpoint, (URLRequest)->Void>()
 
   
   public init(port: UInt16 = 10175, defaultStatusCode:Int = 200){
     self.port = port
     self.defaultStatusCode = defaultStatusCode
     super.init()
-    self.socket = GCDAsyncSocket(delegate: self, delegateQueue: dispatch_get_main_queue())
+    self.socket = GCDAsyncSocket(delegate: self, delegateQueue: DispatchQueue.main)
   }
-  
-  
-  //This gets `respondsToSelector`'d by the async lib. It needs to be internal to be seen by it.
-  func socket(socket:GCDAsyncSocket, didAcceptNewSocket newSocket:GCDAsyncSocket){
+}
+
+
+
+extension FakeServer: GCDAsyncSocketDelegate {
+  public func socket(_ socket:GCDAsyncSocket, didAcceptNewSocket newSocket:GCDAsyncSocket){
     let connection = HTTPConnection(socket: newSocket)
     connection.defaultStatusCode = defaultStatusCode
-    connection.callback.whenFinishesRequest = {[unowned self] (req:NSURLRequest) in
+    connection.callback.whenFinishesRequest = {[unowned self] (req:URLRequest) in
       self.requests.append(req)
       self.endpointToHandlerMap[Endpoint(request: req)]?(req)
     }
@@ -32,51 +35,55 @@ public class FakeServer : NSObject{
       return self.endpointToResponseMap[endpoint]
     }
     connection.callback.whenFinishesResponse = {[unowned self, unowned connection] in
-      self.connections = self.connections.filter{ $0 != connection }
+      if let i = self.connections.index(of: connection) {
+        self.connections.remove(at: i)
+      }
     }
     connections.append(connection)
   }
 }
 
 
+
 public extension FakeServer{
   struct FakeServerCallbacks{
-    var whenRequestHandledByServer:((server:FakeServer)->Void)?
+    var whenRequestHandledByServer:((FakeServer)->Void)?
   }
   
 
   public func start() throws {
-    try self.socket.acceptOnPort(port)
+    try socket.accept(onPort: port)
   }
   
   
   public func stop(){
-    self.socket.disconnect()
+    socket.disconnect()
   }
   
   
-  public func add(response: Response?, endpoint: Endpoint, handler: (NSURLRequest) -> Void = {_ in}) {
+  public func add(_ response: Response?, endpoint: Endpoint, handler: @escaping (URLRequest) -> Void = {_ in}) {
     endpointToResponseMap[endpoint] = response
     endpointToHandlerMap[endpoint] = handler
   }
   
   
-  public func add(responsesAndEndpoints: [(response: Response, endpoint: Endpoint)]) {
-    responsesAndEndpoints.forEach { endpointToResponseMap[$0.endpoint] = $0.response }
+  public func add(_ responsesAndEndpoints: [(response: Response, endpoint: Endpoint)]) {
+    responsesAndEndpoints.forEach { add($0.response, endpoint: $0.endpoint) }
   }
   
   
-  public func didServeEndpoint(endpoint: Endpoint) -> Bool{
-    return requestsForEndpoint(endpoint).isNotEmpty
-  }
-  
-  
-  public func requestsForEndpoint(endpoint:Endpoint)->[NSURLRequest]{
-    return requests.filter { Endpoint(method: $0.HTTPMethod, path: $0.URL?.path) == endpoint }
+  public func requestsForEndpoint(_ endpoint:Endpoint) -> [URLRequest] {
+    return requests.filter { Endpoint(method: $0.httpMethod, path: $0.url?.path) == endpoint }
   }
 
   
-  public func countOfRequestsForEndpoint(endpoint:Endpoint)->Int{
+  public func countOfRequestsForEndpoint(_ endpoint:Endpoint)->Int{
     return requestsForEndpoint(endpoint).count
+  }
+  
+  
+  public func didRequestEndpoint(_ endpoint: Endpoint) -> Bool {
+    let empty = requestsForEndpoint(endpoint).isEmpty
+    return !empty
   }
 }

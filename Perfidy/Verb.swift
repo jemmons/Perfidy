@@ -1,10 +1,10 @@
 import Foundation
 
 public enum Verb:String{
-  case GET="GET", HEAD="HEAD", POST="POST", PUT="PUT", PATCH="PATCH", DELETE="DELETE"
+  case get="GET", head="HEAD", post="POST", put="PUT", patch="PATCH", delete="DELETE"
   
   public init(string:String){
-    self = Verb(rawValue: string.uppercaseString) ?? Verb.GET
+    self = Verb(rawValue: string.uppercased()) ?? .get
   }
 }
 
