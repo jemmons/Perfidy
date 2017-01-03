@@ -1,5 +1,9 @@
 import Foundation
 
+private enum Const {
+  static let defaultStatusCode = 404
+}
+
 public class FakeServer : NSObject{
   public var callback = FakeServerCallbacks()
   fileprivate var requests = [URLRequest]()
@@ -13,7 +17,7 @@ public class FakeServer : NSObject{
   fileprivate var routeToHandlerMap = Dictionary<Route, (URLRequest)->Void>()
 
   
-  public init(port: UInt16 = 10175, defaultStatusCode: Int = 200){
+  public init(port: UInt16 = 10175, defaultStatusCode: Int = Const.defaultStatusCode){
     self.port = port
     self.defaultStatusCode = defaultStatusCode
     super.init()
@@ -29,7 +33,7 @@ public extension FakeServer{
   }
   
   
-  static func runWith(port: UInt16 = 10175, defaultStatusCode: Int = 200, f: (FakeServer)->Void) {
+  static func runWith(port: UInt16 = 10175, defaultStatusCode: Int = Const.defaultStatusCode, f: (FakeServer)->Void) {
     let server = FakeServer(port: port, defaultStatusCode: defaultStatusCode)
     try! server.start()
     defer {
@@ -90,8 +94,8 @@ public extension FakeServer{
 
 extension FakeServer: GCDAsyncSocketDelegate {
   public func socket(_ socket:GCDAsyncSocket, didAcceptNewSocket newSocket:GCDAsyncSocket){
-    let connection = HTTPConnection(socket: newSocket)
-    connection.defaultStatusCode = defaultStatusCode
+    routeToHandlerMap.forEach { print($0) }
+    let connection = HTTPConnection(socket: newSocket, defaultStatusCode: defaultStatusCode)
     connection.callback.whenFinishesRequest = {[unowned self] (req:URLRequest) in
       self.requests.append(req)
       self.routeToHandlerMap[Route(request: req)]?(req)

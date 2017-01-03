@@ -6,7 +6,7 @@ import Medea
 class ServerTests: XCTestCase {
   func testShouldConnectWithoutError(){
     let expectResponse = expectation(description: "Response received.")
-    whileServer { _ in
+    FakeServer.runWith { _ in
       sendRequest { _, _, error in
         XCTAssertNil(error)
         expectResponse.fulfill()
@@ -18,7 +18,7 @@ class ServerTests: XCTestCase {
   
   func testShouldErrorOnDuplicateConnections(){
     let shouldThrow = expectation(description: "Should throw")
-    whileServer { server in
+    FakeServer.runWith { server in
       do {
         try server.start()
       } catch {
@@ -31,20 +31,20 @@ class ServerTests: XCTestCase {
 
   
   func testStatusCodes(){
-    let expect200 = expectation(description: "Default status code")
+    let expect404 = expectation(description: "Default status code")
     let expect201 = expectation(description: "201 status code")
     let expect300 = expectation(description: "300 status code")
     let expect400 = expectation(description: "400 status code")
     let expect800 = expectation(description: "Nonexistant status code")
     
-    whileServer { server in
+    FakeServer.runWith { server in
       server.add("/201", response: 201)
       server.add("/300", response: 300)
       server.add("/400", response: 400)
       server.add("/800", response: 800)
     
       sendRequest("/foo/bar"){ res, _, _ in
-        if res?.statusCode == 200 { expect200.fulfill() }
+        if res?.statusCode == 404 { expect404.fulfill() }
       }
       
       sendRequest("/201"){ res, _, _ in
@@ -69,25 +69,23 @@ class ServerTests: XCTestCase {
 
   
   func testDefaultStatusCodes(){
-    let expectation = self.expectation(description: "should implicitly return 400 without specifying a response")
+    let should500 = self.expectation(description: "should implicitly return 500 without specifying a response")
 
-    let server400 = FakeServer(defaultStatusCode: 400)
-    try! server400.start()
-    defer {
-      server400.stop()
+    FakeServer.runWith(defaultStatusCode: 500) { server in
+      sendRequest(){ res, _, _ in
+        if res?.statusCode == 500{
+          should500.fulfill()
+        }
+      }
+      waitForExpectations(timeout: 3.0, handler: nil)
     }
-    sendRequest(){ res, _, _ in
-      if res?.statusCode == 400{ expectation.fulfill() }
-    }
-
-    waitForExpectations(timeout: 3.0, handler: nil)
   }
   
   
   func testRawJSONResponse(){
     let expectResponse = expectation(description: "Should get response")
 
-    whileServer { server in
+    FakeServer.runWith { server in
       let res = try! Response(status: 201, rawJSON:"{\"thing\":42}")
       server.add("/foo", response: res)
 
@@ -107,7 +105,7 @@ class ServerTests: XCTestCase {
   func testJSONResponse(){
     let expectResponse = expectation(description: "Should get response")
     
-    whileServer { server in
+    FakeServer.runWith { server in
       let res = try! Response(status: 202, json:["fred":"barney"])
       server.add("/foo/bar/baz", response: res)
 
@@ -126,17 +124,20 @@ class ServerTests: XCTestCase {
   
   func testPostingData() {
     let expectSent = expectation(description: "Sent data")
+    let expectReceived = expectation(description: "Received data")
 
-    whileServer { server in
-      server.add("POST /"){ req in
+    FakeServer.runWith { server in
+      server.add("POST /") { req in
         let body = String(data: req.httpBody!, encoding: .utf8)
         XCTAssertEqual(body, "foo")
-        expectSent.fulfill()
+        expectReceived.fulfill()
       }
       let data = "foo".data(using: String.Encoding.utf8)!
-      var req = URLRequest(url: URL(string: "http://localhost:10175")!)
+      var req = URLRequest(url: URL(string: "http://localhost:10175/")!)
       req.httpMethod = "POST"
-      URLSession.shared.uploadTask(with: req, from: data).resume()
+      URLSession.shared.uploadTask(with: req, from: data){ _, _, _ in
+        expectSent.fulfill()
+        }.resume()
 
       waitForExpectations(timeout: 2.0, handler: nil)
     }
@@ -154,15 +155,5 @@ private extension ServerTests{
     URLSession.shared.dataTask(with: request(path)) { data, res, error in
       handler((res as? HTTPURLResponse), data, error as NSError!)
     }.resume()
-  }
-  
-  
-  func whileServer(handler: (FakeServer)->Void) -> Void {
-    let server = FakeServer()
-    try! server.start()
-    defer {
-      server.stop()
-    }
-    handler(server)
   }
 }

@@ -16,12 +16,13 @@ internal class HTTPConnection : NSObject {
     var whenNeedsResponseForRoute: ((Route)->Response?)?
   }
   internal var callback = HTTPConnectionCallbacks()
-  internal var defaultStatusCode = 200
+  fileprivate let defaultStatusCode: Int
   fileprivate let socket:GCDAsyncSocket
   fileprivate lazy var machine: StateMachine<State> = self.makeMachine()
   
-  init(socket:GCDAsyncSocket){
+  init(socket: GCDAsyncSocket, defaultStatusCode: Int){
     self.socket = socket
+    self.defaultStatusCode = defaultStatusCode
     super.init()
     self.socket.setDelegate(self, delegateQueue: DispatchQueue.main)
     machine.queue(.readingHead(HTTPMessage()))
