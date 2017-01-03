@@ -96,14 +96,14 @@ extension FakeServer: GCDAsyncSocketDelegate {
   public func socket(_ socket:GCDAsyncSocket, didAcceptNewSocket newSocket:GCDAsyncSocket){
     routeToHandlerMap.forEach { print($0) }
     let connection = HTTPConnection(socket: newSocket, defaultStatusCode: defaultStatusCode)
-    connection.callback.whenFinishesRequest = {[unowned self] (req:URLRequest) in
+    connection.delegate.didFinishRequest = {[unowned self] (req:URLRequest) in
       self.requests.append(req)
       self.routeToHandlerMap[Route(request: req)]?(req)
     }
-    connection.callback.whenNeedsResponseForRoute = {[unowned self](route: Route) in
+    connection.delegate.responseForRoute = {[unowned self](route: Route) in
       return self.routeToResponseMap[route]
     }
-    connection.callback.whenFinishesResponse = {[unowned self, unowned connection] in
+    connection.delegate.didFinishResponse = {[unowned self, unowned connection] in
       if let i = self.connections.index(of: connection) {
         self.connections.remove(at: i)
       }

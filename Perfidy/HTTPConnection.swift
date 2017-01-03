@@ -10,12 +10,12 @@ private enum Const {
 
 
 internal class HTTPConnection : NSObject {
-  internal struct HTTPConnectionCallbacks{
-    var whenFinishesRequest: ((_ req:URLRequest)->Void)?
-    var whenFinishesResponse: (()->Void)?
-    var whenNeedsResponseForRoute: ((Route)->Response?)?
+  internal struct HTTPConnectionDelegates{
+    var didFinishRequest: ((_ req:URLRequest)->Void)?
+    var didFinishResponse: (()->Void)?
+    var responseForRoute: ((Route)->Response?)?
   }
-  internal var callback = HTTPConnectionCallbacks()
+  internal var delegate = HTTPConnectionDelegates()
   fileprivate let defaultStatusCode: Int
   fileprivate let socket:GCDAsyncSocket
   fileprivate lazy var machine: StateMachine<State> = self.makeMachine()
@@ -46,7 +46,7 @@ private extension HTTPConnection{
   func respondToMessage(_ message:HTTPMessage){
     let route = Route(method: message.method, path: message.url?.path)
     //Not only is the callback optional, but it can return a nil response.
-    let response = callback.whenNeedsResponseForRoute?(route) ?? Response(status: defaultStatusCode, data: nil)
+    let response = delegate.responseForRoute?(route) ?? Response(status: defaultStatusCode, data: nil)
     machine.queue(.writingResponse(HTTPMessage(response: response)))
   }
   
@@ -128,13 +128,13 @@ private extension HTTPConnection {
         }
         self.readBodyOfLength(UInt(message.contentLength))
       case .readComplete(let message):
-        self.callback.whenFinishesRequest?(message.request)
+        self.delegate.didFinishRequest?(message.request)
         self.respondToMessage(message)
       case .writingResponse(let message):
         self.writeResponse(message)
       case .writeComplete:
         self.socket.disconnect()
-        self.callback.whenFinishesResponse?()
+        self.delegate.didFinishResponse?()
       default:
         break
       }
