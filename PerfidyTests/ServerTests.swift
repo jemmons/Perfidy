@@ -31,7 +31,6 @@ class ServerTests: XCTestCase {
 
   
   func testStatusCodes(){
-    let expect404 = expectation(description: "Default status code")
     let expect201 = expectation(description: "201 status code")
     let expect300 = expectation(description: "300 status code")
     let expect400 = expectation(description: "400 status code")
@@ -43,10 +42,6 @@ class ServerTests: XCTestCase {
       server.add("/400", response: 400)
       server.add("/800", response: 800)
     
-      sendRequest("/foo/bar"){ res, _, _ in
-        if res?.statusCode == 404 { expect404.fulfill() }
-      }
-      
       sendRequest("/201"){ res, _, _ in
         if res?.statusCode == 201 { expect201.fulfill() }
       }
@@ -63,21 +58,42 @@ class ServerTests: XCTestCase {
         if res?.statusCode == 800 { expect800.fulfill() }
       }
       
-      waitForExpectations(timeout: 3.0, handler: nil)
+      waitForExpectations(timeout: 1.0, handler: nil)
+    }
+  }
+  
+  
+  func testDefaultStatusCode() {
+    let should404 = expectation(description: "respond with a 404")
+    FakeServer.runWith { _ in
+      sendRequest("/foo/bar/baz") { res, _, _ in
+        if res?.statusCode == 404 { should404.fulfill() }
+      }
+      waitForExpectations(timeout: 1.0, handler: nil)
     }
   }
 
   
-  func testDefaultStatusCodes(){
-    let should500 = self.expectation(description: "should implicitly return 500 without specifying a response")
+  func testSetDefaultStatusCode(){
+    let should500 = expectation(description: "should implicitly return 500 without specifying a response")
 
     FakeServer.runWith(defaultStatusCode: 500) { server in
-      sendRequest(){ res, _, _ in
-        if res?.statusCode == 500{
-          should500.fulfill()
-        }
+      sendRequest("/foo/bar/baz"){ res, _, _ in
+        if res?.statusCode == 500{ should500.fulfill() }
       }
       waitForExpectations(timeout: 3.0, handler: nil)
+    }
+  }
+  
+
+  func testDefaultStatusCodeOfAddedRoute() {
+    let should200 = expectation(description: "respond with a 200")
+    FakeServer.runWith { server in
+      server.add("/foo/bar/baz")
+      sendRequest("/foo/bar/baz"){ res, _, _ in
+        if res?.statusCode == 200 { should200.fulfill() }
+      }
+      waitForExpectations(timeout: 1.0, handler: nil)
     }
   }
   

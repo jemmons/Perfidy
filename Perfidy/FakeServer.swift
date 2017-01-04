@@ -56,7 +56,7 @@ public extension FakeServer{
   }
   
   
-  func add(_ route: Route, response: Response? = nil, handler: @escaping (URLRequest) -> Void = {_ in}) {
+  func add(_ route: Route, response: Response = 200, handler: @escaping (URLRequest) -> Void = {_ in}) {
     routeToResponseMap[route] = response
     routeToHandlerMap[route] = handler
   }
