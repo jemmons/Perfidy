@@ -98,6 +98,25 @@ class ServerTests: XCTestCase {
   }
   
   
+  func testHeaders() {
+    let shouldReceive = expectation(description: "receive request with header")
+    let shouldRespond = expectation(description: "respond")
+
+    FakeServer.runWith { server in
+      server.add("/", response: 200) { req in
+        XCTAssertEqual(req.value(forHTTPHeaderField: "foo"), "bar")
+        shouldReceive.fulfill()
+      }
+    
+      var headerRequest = request("/")
+      headerRequest.addValue("bar", forHTTPHeaderField: "foo")
+      URLSession.shared.dataTask(with: headerRequest) { _, _, _ in
+        shouldRespond.fulfill()
+        }.resume()
+      waitForExpectations(timeout: 1.0, handler: nil)
+    }
+  }
+  
   func testRawJSONResponse(){
     let expectResponse = expectation(description: "Should get response")
 

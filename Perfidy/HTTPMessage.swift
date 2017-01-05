@@ -77,6 +77,12 @@ struct HTTPMessage{
     var req = URLRequest(url: URL(string: "example.com")!)
     req.url = CFHTTPMessageCopyRequestURL(message)?.takeRetainedValue() as URL?
 
+    if
+      let _unretainedHeaders = CFHTTPMessageCopyAllHeaderFields(message),
+      let headers = _unretainedHeaders.takeRetainedValue() as? [String: String] {
+      req.allHTTPHeaderFields = headers
+    }
+    
     if let body = CFHTTPMessageCopyBody(message) {
       req.httpBody = body.takeRetainedValue() as Data
     }
