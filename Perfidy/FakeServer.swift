@@ -94,7 +94,6 @@ public extension FakeServer{
 
 extension FakeServer: GCDAsyncSocketDelegate {
   public func socket(_ socket:GCDAsyncSocket, didAcceptNewSocket newSocket:GCDAsyncSocket){
-    routeToHandlerMap.forEach { print($0) }
     let connection = HTTPConnection(socket: newSocket, defaultStatusCode: defaultStatusCode)
     connection.delegate.didFinishRequest = {[unowned self] (req:URLRequest) in
       self.requests.append(req)
