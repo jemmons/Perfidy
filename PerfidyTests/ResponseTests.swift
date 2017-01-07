@@ -27,7 +27,7 @@ class ResponseTests : XCTestCase{
   
   
   func testRawJSON() {
-    let subject = try! Response(rawJSON: "{\"foo\"   :  \"bar\"  \n    }")
+    let subject = try! Response(rawJSON: "{\"foo\":\"bar\"}")
     XCTAssertEqual(String(data: subject.body!, encoding: String.Encoding.utf8), "{\"foo\":\"bar\"}")
     XCTAssertEqual(subject.headers[lengthKey], "13")
     XCTAssertEqual(subject.headers[typeKey], "application/json")
@@ -45,17 +45,25 @@ class ResponseTests : XCTestCase{
   }
   
   
-  func testJSON() {
-    let subject = try! Response(json: ["foo":"bar"])
-    XCTAssertEqual(String(data: subject.body!, encoding: String.Encoding.utf8), "{\"foo\":\"bar\"}")
+  func testJSONObject() {
+    let subject = try! Response(jsonObject: ["foo":"bar"])
+    XCTAssertEqual(String(data: subject.body!, encoding: .utf8), "{\"foo\":\"bar\"}")
     XCTAssertEqual(subject.headers[lengthKey], "13")
+    XCTAssertEqual(subject.headers[typeKey], "application/json")
+  }
+  
+  
+  func testJSONArray() {
+    let subject = try! Response(jsonArray: [1,2,3])
+    XCTAssertEqual(String(data: subject.body!, encoding: .utf8), "[1,2,3]")
+    XCTAssertEqual(subject.headers[lengthKey], "7")
     XCTAssertEqual(subject.headers[typeKey], "application/json")
   }
   
   
   func testInvalidJSON() {
     do {
-      let _ = try Response(json: [42:"numbers can't be keys"])
+      let _ = try Response(jsonObject: [42:"numbers can't be keys"])
     } catch {
       XCTAssert(true)
       return
@@ -63,7 +71,6 @@ class ResponseTests : XCTestCase{
     XCTFail()
   }
 
-  
   
   func testContentHeaderOverride(){
     let headers = [lengthKey:"42", typeKey:"foo/bar"]
@@ -88,7 +95,7 @@ class ResponseTests : XCTestCase{
   }
   
   
-  func testJSONLiteral() {
+  func testJSONObjectLiteral() {
     let subject: Response = ["foo":"bar"]
     XCTAssertEqual(String(data: subject.body!, encoding: String.Encoding.utf8), "{\"foo\":\"bar\"}")
     XCTAssertEqual(subject.headers[lengthKey], "13")

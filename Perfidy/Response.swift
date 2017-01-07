@@ -18,6 +18,10 @@ private enum Const {
 /// 
 /// Using the json, and text convenience initializers also sets the `Content-Type` if not already present.
 public struct Response {
+  public enum JSONError: Error {
+    case malformed
+  }
+  
   public let status: Int
   public let body: Data?
   public let headers: [String:String]
@@ -38,8 +42,15 @@ public struct Response {
   }
   
   
-  public init(status: Int = 200, headers: [String:String] = [String:String](), json: JSONObject) throws {
-    let data = try JSONHelper.data(from: json)
+  public init(status: Int = 200, headers: [String:String] = [String:String](), jsonObject: JSONObject) throws {
+    let data = try JSONHelper.data(from: jsonObject)
+    let mergedHeaders = [Const.contentTypeKey: Const.jsonContentType] + headers
+    self.init(status: status, headers: mergedHeaders, data: data)
+  }
+  
+  
+  public init(status: Int = 200, headers: [String:String] = [String:String](), jsonArray: JSONArray) throws {
+    let data = try JSONHelper.data(from: jsonArray)
     let mergedHeaders = [Const.contentTypeKey: Const.jsonContentType] + headers
     self.init(status: status, headers: mergedHeaders, data: data)
   }
@@ -48,9 +59,10 @@ public struct Response {
   public init(status: Int = 200, headers: [String:String] = [String:String](), rawJSON: String) throws {
     let mergedHeaders = [Const.contentTypeKey: Const.jsonContentType] + headers
 
-    //We're making this round-trip just to validate the JSON
-    let data = try JSONHelper.data(from: JSONHelper.jsonObject(from: rawJSON))
-    self.init(status: status, headers: mergedHeaders, data: data)
+    guard JSONHelper.validate(rawJSON) else {
+      throw JSONError.malformed
+    }
+    self.init(status: status, headers: mergedHeaders, data: rawJSON.data(using: .utf8)!)
   }
 }
 
@@ -82,9 +94,13 @@ extension Response: ExpressibleByDictionaryLiteral {
       self.init(data: nil)
       return
     }
-    try! self.init(json: json)
+    try! self.init(jsonObject: json)
   }
 }
+
+
+
+//We'd implement array literal for JSON also, but JSON arrays are rare and the empty `Response()` becomes ambiguous if we have it.
 
 
 

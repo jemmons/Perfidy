@@ -137,11 +137,11 @@ class ServerTests: XCTestCase {
   }
 
   
-  func testJSONResponse(){
+  func testJSONObjectResponse(){
     let expectResponse = expectation(description: "Should get response")
     
     FakeServer.runWith { server in
-      let res = try! Response(status: 202, json:["fred":"barney"])
+      let res = try! Response(status: 202, jsonObject:["fred":"barney"])
       server.add("/foo/bar/baz", response: res)
 
       sendRequest("/foo/bar/baz"){ res, data, error in
@@ -152,10 +152,30 @@ class ServerTests: XCTestCase {
         expectResponse.fulfill()
       }
 
-      waitForExpectations(timeout: 2.0, handler: nil)
+      waitForExpectations(timeout: 1.0, handler: nil)
     }
   }
+
   
+  func testJSONArrayResponse(){
+    let expectResponse = expectation(description: "Should get response")
+    
+    FakeServer.runWith { server in
+      let res = try! Response(status: 202, jsonArray:["fred","barney"])
+      server.add("/foo/bar/baz", response: res)
+      
+      sendRequest("/foo/bar/baz"){ res, data, error in
+        let json = try! JSONHelper.jsonArray(from: data!)
+        XCTAssertEqual(json as! [String], ["fred","barney"])
+        XCTAssertNil(error)
+        XCTAssertEqual(res?.statusCode, 202)
+        expectResponse.fulfill()
+      }
+      
+      waitForExpectations(timeout: 1.0, handler: nil)
+    }
+  }
+
   
   func testPostingData() {
     let expectSent = expectation(description: "Sent data")
@@ -174,7 +194,7 @@ class ServerTests: XCTestCase {
         expectSent.fulfill()
         }.resume()
 
-      waitForExpectations(timeout: 2.0, handler: nil)
+      waitForExpectations(timeout: 1.0, handler: nil)
     }
   }
 }
