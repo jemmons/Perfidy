@@ -193,7 +193,6 @@
 				731E6CDC1B093DEA00DBBB96 /* Frameworks */,
 				731E6CDD1B093DEA00DBBB96 /* Headers */,
 				731E6CDE1B093DEA00DBBB96 /* Resources */,
-				731E6D091B093ED200DBBB96 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -280,22 +279,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		731E6D091B093ED200DBBB96 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Gauntlet.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Medea.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Rebar.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
 		73BE03511E14B8F300002A8D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
