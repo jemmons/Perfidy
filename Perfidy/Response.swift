@@ -49,7 +49,7 @@ public struct Response {
     let mergedHeaders = [Const.contentTypeKey: Const.jsonContentType] + headers
 
     //We're making this round-trip just to validate the JSON
-    let data = try JSONHelper.data(from: JSONHelper.json(from: rawJSON))
+    let data = try JSONHelper.data(from: JSONHelper.jsonObject(from: rawJSON))
     self.init(status: status, headers: mergedHeaders, data: data)
   }
 }

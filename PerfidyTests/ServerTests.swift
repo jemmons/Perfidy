@@ -125,7 +125,7 @@ class ServerTests: XCTestCase {
       server.add("/foo", response: res)
 
       sendRequest("/foo"){ res, data, error in
-        let json = try! JSONHelper.json(from: data!)
+        let json = try! JSONHelper.jsonObject(from: data!)
         XCTAssertEqual(json["thing"] as! NSNumber, 42)
         XCTAssertNil(error)
         XCTAssertEqual(res?.statusCode, 201)
@@ -145,7 +145,7 @@ class ServerTests: XCTestCase {
       server.add("/foo/bar/baz", response: res)
 
       sendRequest("/foo/bar/baz"){ res, data, error in
-        let json = try! JSONHelper.json(from: data!)
+        let json = try! JSONHelper.jsonObject(from: data!)
         XCTAssertEqual(json["fred"] as! String, "barney")
         XCTAssertNil(error)
         XCTAssertEqual(res?.statusCode, 202)
