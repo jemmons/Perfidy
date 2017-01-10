@@ -4,6 +4,28 @@ import Perfidy
 import Medea
 
 class ServerTests: XCTestCase {
+  func testTimeout() {
+    let shouldTimeOut = expectation(description: "times out")
+    FakeServer.runWith { server in
+      server.add("/", response: 666)
+      let req = URLRequest(url: URL(string: "http://localhost:10175")!)
+      let config = URLSessionConfiguration.default
+      config.timeoutIntervalForRequest = 0.1
+      let session = URLSession(configuration: config)
+      
+      session.dataTask(with: req) { _, _, error in
+        if
+          let _error = error as? NSError,
+          _error.domain == NSURLErrorDomain,
+          _error.code == -1001 {
+          shouldTimeOut.fulfill()
+        }
+        }.resume()
+      waitForExpectations(timeout: 0.5, handler: nil)
+    }
+  }
+  
+
   func testShouldConnectWithoutError(){
     let expectResponse = expectation(description: "Response received.")
     FakeServer.runWith { _ in
