@@ -47,6 +47,10 @@ private extension HTTPConnection{
     let route = Route(method: message.method, path: message.url?.path)
     //Not only is the callback optional, but it can return a nil response.
     let response = delegate.responseForRoute?(route) ?? Response(status: defaultStatusCode, data: nil)
+    guard response.status != 666 else {
+      //This will throw a wrench into the state machine and completely hang the connection. Usefull if testing for timeouts.
+      return
+    }
     machine.queue(.writingResponse(HTTPMessage(response: response)))
   }
   
