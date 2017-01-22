@@ -1,6 +1,6 @@
 import Foundation
 import Medea
-import Rebar
+
 
 
 private enum Const {
@@ -31,12 +31,12 @@ public struct Response {
     self.status = status
     self.body = data
     let contentLengthHeader = data == nil ? [:] : [Const.contentLengthKey:String(data!.count)]
-    self.headers = contentLengthHeader + headers
+    self.headers = Helper.merging(headers, on: contentLengthHeader)
   }
   
   
   public init(status: Int = 200, headers: [String:String] = [String:String](), text: String) {
-    let mergedHeaders = [Const.contentTypeKey: Const.textContentType] + headers
+    let mergedHeaders = Helper.merging(headers, on: [Const.contentTypeKey: Const.textContentType])
     let data = text.data(using: .utf8, allowLossyConversion: true)!
     self.init(status: status, headers: mergedHeaders, data: data)
   }
@@ -44,20 +44,20 @@ public struct Response {
   
   public init(status: Int = 200, headers: [String:String] = [String:String](), jsonObject: JSONObject) throws {
     let data = try JSONHelper.data(from: jsonObject)
-    let mergedHeaders = [Const.contentTypeKey: Const.jsonContentType] + headers
+    let mergedHeaders = Helper.merging(headers, on: [Const.contentTypeKey: Const.jsonContentType])
     self.init(status: status, headers: mergedHeaders, data: data)
   }
   
   
   public init(status: Int = 200, headers: [String:String] = [String:String](), jsonArray: JSONArray) throws {
     let data = try JSONHelper.data(from: jsonArray)
-    let mergedHeaders = [Const.contentTypeKey: Const.jsonContentType] + headers
+    let mergedHeaders = Helper.merging(headers, on: [Const.contentTypeKey: Const.jsonContentType])
     self.init(status: status, headers: mergedHeaders, data: data)
   }
   
   
   public init(status: Int = 200, headers: [String:String] = [String:String](), rawJSON: String) throws {
-    let mergedHeaders = [Const.contentTypeKey: Const.jsonContentType] + headers
+    let mergedHeaders = Helper.merging(headers, on: [Const.contentTypeKey: Const.jsonContentType])
 
     guard JSONHelper.validate(rawJSON) else {
       throw JSONError.malformed
@@ -88,9 +88,13 @@ extension Response: ExpressibleByStringLiteral {
 
 extension Response: ExpressibleByDictionaryLiteral {
   public init(dictionaryLiteral elements: (AnyHashable, Any)...) {
-    let json = Dictionary(pairs: elements as [(key: AnyHashable, value: Any)])
+    var json = [AnyHashable: Any]()
+    elements.forEach{ key, value in
+      json[key] = value
+    }
+
     //NOTE: Becuase of the way «DictionaryLiteralConvertible» is defined, this initializer is the one that gets called when there are no arguments (as in: «Response()»).
-    guard json.isNotEmpty else {
+    guard !json.isEmpty else {
       self.init(data: nil)
       return
     }
@@ -107,5 +111,18 @@ extension Response: ExpressibleByDictionaryLiteral {
 extension Response: ExpressibleByIntegerLiteral {
   public init(integerLiteral value: Int) {
     self.init(status: value, data: nil)
+  }
+}
+
+
+
+private enum Helper {
+  static func merging<K: Hashable, V>(_ source: [K: V], on target: [K: V]) -> [K: V] {
+    return source.reduce(target){ (last, next) in
+      var mutatingCopy = last
+      let (key, value) = next
+      mutatingCopy.updateValue(value, forKey:key)
+      return mutatingCopy
+    }
   }
 }

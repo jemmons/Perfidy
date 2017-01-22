@@ -1,3 +1,2 @@
-github "reverbdotcom/rebar"
-github "jemmons/Gauntlet"
-github "jemmons/Medea" == 0.2
+github "jemmons/Gauntlet" ~> 1.0
+github "jemmons/Medea" ~> 0.2

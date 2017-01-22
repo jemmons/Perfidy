@@ -1,3 +1,2 @@
 github "jemmons/Gauntlet" "v1.0"
-github "jemmons/Medea" "v0.2"
-github "reverbdotcom/rebar" "v0.9"
+github "jemmons/Medea" "v0.2.3"

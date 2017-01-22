@@ -1,5 +1,6 @@
 import Foundation
-import Rebar
+
+
 
 public struct Route{
   fileprivate let method: Verb
@@ -67,15 +68,20 @@ fileprivate enum Helper {
       return (nil, formatPath(string))
     }
     
-    let rest = comp.dropFirst().joined(separator: " ").trimmingWhitespace
-    return (verb, formatPath(rest))
+    let rest = comp.dropFirst().joined(separator: " ")
+    let trimmed = rest.trimmingCharacters(in: .whitespacesAndNewlines)
+    return (verb, formatPath(trimmed))
   }
 
   
   static func formatPath(_ string:String?) -> String? {
-    guard let path = string?.maybeBlank?.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed)?.replacingOccurrences(of: "%20", with: "+") else {
-      return nil
+    guard
+      let _string = string,
+      _string.trimmingCharacters(in: .whitespacesAndNewlines) != "",
+      let path = _string.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlPathAllowed)?.replacingOccurrences(of: "%20", with: "+") else {
+        return nil
     }
+    
     return path.hasPrefix("/") ? path : "/" + path
   }
 }
