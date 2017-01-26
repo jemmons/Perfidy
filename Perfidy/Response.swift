@@ -18,10 +18,6 @@ private enum Const {
 /// 
 /// Using the json, and text convenience initializers also sets the `Content-Type` if not already present.
 public struct Response {
-  public enum JSONError: Error {
-    case malformed
-  }
-  
   public let status: Int
   public let body: Data?
   public let headers: [String:String]
@@ -58,10 +54,7 @@ public struct Response {
   
   public init(status: Int = 200, headers: [String:String] = [String:String](), rawJSON: String) throws {
     let mergedHeaders = Helper.merging(headers, on: [Const.contentTypeKey: Const.jsonContentType])
-
-    guard JSONHelper.validate(rawJSON) else {
-      throw JSONError.malformed
-    }
+    try JSONHelper.validate(rawJSON)
     self.init(status: status, headers: mergedHeaders, data: rawJSON.data(using: .utf8)!)
   }
 }

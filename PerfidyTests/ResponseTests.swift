@@ -31,6 +31,12 @@ class ResponseTests : XCTestCase{
     XCTAssertEqual(String(data: subject.body!, encoding: String.Encoding.utf8), "{\"foo\":\"bar\"}")
     XCTAssertEqual(subject.headers[lengthKey], "13")
     XCTAssertEqual(subject.headers[typeKey], "application/json")
+    
+    let shouldThrow = expectation(description: "malformed JSON")
+    do { _ = try Response(rawJSON: "not json") } catch {
+      shouldThrow.fulfill()
+    }
+    waitForExpectations(timeout: 1.0, handler: nil)
   }
   
   
