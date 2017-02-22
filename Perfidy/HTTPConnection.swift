@@ -102,8 +102,8 @@ private extension HTTPConnection {
     case readingHead(HTTPMessage), readingBody(HTTPMessage), readComplete(HTTPMessage)
     case writingResponse(HTTPMessage), writeComplete
 
-    static func shouldTransition(from: State, to: State) -> Bool {
-      switch (from, to) {
+    func shouldTransition(to: State) -> Bool {
+      switch (self, to) {
       case (.ready, .readingHead),
       (.readingHead, .readingHead),
       (.readingHead, .readingBody),
@@ -120,25 +120,25 @@ private extension HTTPConnection {
   
   func makeMachine() -> StateMachine<State> {
     let machine = StateMachine(initialState: State.ready)
-    machine.transitionHandler = { [unowned self] _, to in
+    machine.delegates.didTransition = { [weak self] _, to in
       switch to{
       case .readingHead:
-        self.readHead()
+        self?.readHead()
       case .readingBody(let message):
         guard message.contentLength != 0 else {
           //We have to short-circuit here because reading 0 length from the socket is a no-op (and thus will never cause the async callback to be fired, thus never transition to SendingResponse).
-          self.machine.queue(.readComplete(message))
+          self?.machine.queue(.readComplete(message))
           break
         }
-        self.readBodyOfLength(UInt(message.contentLength))
+        self?.readBodyOfLength(UInt(message.contentLength))
       case .readComplete(let message):
-        self.delegate.didFinishRequest?(message.request)
-        self.respondToMessage(message)
+        self?.delegate.didFinishRequest?(message.request)
+        self?.respondToMessage(message)
       case .writingResponse(let message):
-        self.writeResponse(message)
+        self?.writeResponse(message)
       case .writeComplete:
-        self.socket.disconnect()
-        self.delegate.didFinishResponse?()
+        self?.socket.disconnect()
+        self?.delegate.didFinishResponse?()
       default:
         break
       }
