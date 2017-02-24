@@ -18,6 +18,7 @@
 		731E6D081B093EAF00DBBB96 /* ServerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731E6D071B093EAF00DBBB96 /* ServerTests.swift */; };
 		737A82C41C8B8B9C0026BEB0 /* Gauntlet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */; };
 		737A82CC1C8BE1EB0026BEB0 /* RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737A82CB1C8BE1EB0026BEB0 /* RouteTests.swift */; };
+		73BAF2581E5F3E8F00DBE45A /* .jazzy.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 73BAF2571E5F3E8F00DBE45A /* .jazzy.yaml */; };
 		73BC5E7E1B0FB8EF009C576E /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7D1B0FB8EF009C576E /* Response.swift */; };
 		73BC5E801B0FD4C6009C576E /* Verb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E7F1B0FD4C6009C576E /* Verb.swift */; };
 		73BC5E821B0FD773009C576E /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E811B0FD773009C576E /* Route.swift */; };
@@ -53,6 +54,8 @@
 		731E6D071B093EAF00DBBB96 /* ServerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTests.swift; sourceTree = "<group>"; };
 		737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gauntlet.framework; path = Carthage/Build/iOS/Gauntlet.framework; sourceTree = SOURCE_ROOT; };
 		737A82CB1C8BE1EB0026BEB0 /* RouteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
+		73BAF2551E5E35C400DBE45A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		73BAF2571E5F3E8F00DBE45A /* .jazzy.yaml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .jazzy.yaml; sourceTree = "<group>"; };
 		73BC5E7D1B0FB8EF009C576E /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		73BC5E7F1B0FD4C6009C576E /* Verb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
 		73BC5E811B0FD773009C576E /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -86,10 +89,12 @@
 		731E6CD61B093DEA00DBBB96 = {
 			isa = PBXGroup;
 			children = (
+				731E6CFC1B093E5900DBBB96 /* Cartfile */,
+				73BAF2571E5F3E8F00DBE45A /* .jazzy.yaml */,
+				73BAF2551E5E35C400DBE45A /* README.md */,
 				731E6CE21B093DEA00DBBB96 /* Perfidy */,
 				731E6CEF1B093DEA00DBBB96 /* PerfidyTests */,
 				731E6CE11B093DEA00DBBB96 /* Products */,
-				731E6CFC1B093E5900DBBB96 /* Cartfile */,
 				73BE034D1E146D1700002A8D /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73BAF2581E5F3E8F00DBE45A /* .jazzy.yaml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

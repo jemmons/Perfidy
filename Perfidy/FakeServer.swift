@@ -1,11 +1,35 @@
 import Foundation
 
+
+
 private enum Const {
   static let defaultStatusCode = 404
+  static let defaultPort: UInt16 = 10175
 }
 
+
+
+/**
+ A small, in-process HTTP server that can be spun up to validate received requests and provide faked responses.
+ 
+ It can be explicitly created, started and stopped:
+ 
+ ```
+ let server = FakeServer()
+ try! server.start()
+ //do stuff with `server`
+ server.stop()
+ ```
+ 
+ There's also a convenience method that takes a closure, useful for testing:
+ 
+ ```
+ FakeServer.runWith { server in
+   //do stuff with `server`
+ }
+ ```
+ */
 public class FakeServer : NSObject{
-  public var callback = FakeServerCallbacks()
   fileprivate var requests = [URLRequest]()
   
   fileprivate let port: UInt16
@@ -16,8 +40,16 @@ public class FakeServer : NSObject{
   fileprivate var routeToResponseMap = Dictionary<Route, Response>()
   fileprivate var routeToHandlerMap = Dictionary<Route, (URLRequest)->Void>()
 
-  
-  public init(port: UInt16 = 10175, defaultStatusCode: Int = Const.defaultStatusCode){
+
+  /**
+   Creates a new server.
+
+   * note: Even once created, the server is not listening for connections. It must be explicitly run by calling `start()` (or using the `runWith()` convenience method).
+   
+   * parameter port: The port the server will listen on once running. By default it will use port 10175.
+   * parameter defaultStatusCode:
+  */
+  public init(port: UInt16 = Const.defaultPort, defaultStatusCode: Int = Const.defaultStatusCode){
     self.port = port
     self.defaultStatusCode = defaultStatusCode
     super.init()
@@ -28,12 +60,7 @@ public class FakeServer : NSObject{
 
 
 public extension FakeServer{
-  struct FakeServerCallbacks{
-    var whenRequestHandledByServer:((FakeServer)->Void)?
-  }
-  
-  
-  static func runWith(port: UInt16 = 10175, defaultStatusCode: Int = Const.defaultStatusCode, f: (FakeServer)->Void) {
+  static func runWith(port: UInt16 = Const.defaultPort, defaultStatusCode: Int = Const.defaultStatusCode, f: (FakeServer)->Void) {
     let server = FakeServer(port: port, defaultStatusCode: defaultStatusCode)
     try! server.start()
     defer {

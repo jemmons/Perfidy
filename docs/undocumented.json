@@ -1,0 +1,285 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": null,
+      "symbol": "FakeServer",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": null,
+      "symbol": "FakeServer",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 7,
+      "symbol": "FakeServer",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 8,
+      "symbol": "FakeServer.callback",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 20,
+      "symbol": "FakeServer.init(port:defaultStatusCode:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 31,
+      "symbol": "FakeServer.FakeServerCallbacks",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 36,
+      "symbol": "FakeServer.runWith(port:defaultStatusCode:f:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 46,
+      "symbol": "FakeServer.start()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 51,
+      "symbol": "FakeServer.stop()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 59,
+      "symbol": "FakeServer.add(_:response:handler:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 65,
+      "symbol": "FakeServer.add(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 70,
+      "symbol": "FakeServer.add(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 77,
+      "symbol": "FakeServer.requestsForRoute(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 82,
+      "symbol": "FakeServer.countOfRequestsForRoute(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 87,
+      "symbol": "FakeServer.didRequestRoute(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/FakeServer.swift",
+      "line": 96,
+      "symbol": "FakeServer.socket(_:didAcceptNewSocket:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Response.swift",
+      "line": 21,
+      "symbol": "Response.status",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Response.swift",
+      "line": 22,
+      "symbol": "Response.body",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Response.swift",
+      "line": 23,
+      "symbol": "Response.headers",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Response.swift",
+      "line": 26,
+      "symbol": "Response.init(status:headers:data:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Response.swift",
+      "line": 34,
+      "symbol": "Response.init(status:headers:text:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Response.swift",
+      "line": 41,
+      "symbol": "Response.init(status:headers:jsonObject:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Response.swift",
+      "line": 48,
+      "symbol": "Response.init(status:headers:jsonArray:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Response.swift",
+      "line": 55,
+      "symbol": "Response.init(status:headers:rawJSON:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Route.swift",
+      "line": null,
+      "symbol": "Route",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Route.swift",
+      "line": null,
+      "symbol": "Route",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Route.swift",
+      "line": null,
+      "symbol": "Route",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Route.swift",
+      "line": 5,
+      "symbol": "Route",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Route.swift",
+      "line": 9,
+      "symbol": "Route.init(method:path:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Route.swift",
+      "line": 15,
+      "symbol": "Route.init(method:path:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Route.swift",
+      "line": 91,
+      "symbol": "==(_:_:)",
+      "symbol_kind": "source.lang.swift.decl.function.free",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Verb.swift",
+      "line": null,
+      "symbol": "Verb",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Verb.swift",
+      "line": 3,
+      "symbol": "Verb",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Verb.swift",
+      "line": 4,
+      "symbol": "Verb.delete",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Verb.swift",
+      "line": 4,
+      "symbol": "Verb.get",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Verb.swift",
+      "line": 4,
+      "symbol": "Verb.head",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Verb.swift",
+      "line": 4,
+      "symbol": "Verb.patch",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Verb.swift",
+      "line": 4,
+      "symbol": "Verb.post",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Verb.swift",
+      "line": 4,
+      "symbol": "Verb.put",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/skia/code/mcmxcix/Perfidy/Perfidy/Verb.swift",
+      "line": 6,
+      "symbol": "Verb.init(string:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/skia/code/mcmxcix/Perfidy"
+}
