@@ -81,9 +81,12 @@ extension Response: ExpressibleByStringLiteral {
 
 extension Response: ExpressibleByDictionaryLiteral {
   public init(dictionaryLiteral elements: (AnyHashable, Any)...) {
-    var json = [AnyHashable: Any]()
+    var json = JSONObject()
     elements.forEach{ key, value in
-      json[key] = value
+      guard let string = key as? String else {
+        return
+      }
+      json[string] = value
     }
 
     //NOTE: Becuase of the way «DictionaryLiteralConvertible» is defined, this initializer is the one that gets called when there are no arguments (as in: «Response()»).

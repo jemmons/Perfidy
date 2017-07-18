@@ -69,7 +69,7 @@ class ResponseTests : XCTestCase{
   
   func testInvalidJSON() {
     do {
-      let _ = try Response(jsonObject: [42:"numbers can't be keys"])
+      let _ = try Response(jsonObject: ["Invalid value object": Date()])
     } catch {
       XCTAssert(true)
       return

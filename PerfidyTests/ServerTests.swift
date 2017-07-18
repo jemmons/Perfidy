@@ -15,12 +15,12 @@ class ServerTests: XCTestCase {
       
       session.dataTask(with: req) { _, _, error in
         if
-          let _error = error as? NSError,
-          _error.domain == NSURLErrorDomain,
-          _error.code == -1001 {
+          let _error = error,
+          (_error as NSError).domain == NSURLErrorDomain,
+          (_error as NSError).code == -1001 {
           shouldTimeOut.fulfill()
         }
-        }.resume()
+      }.resume()
       waitForExpectations(timeout: 0.5, handler: nil)
     }
   }

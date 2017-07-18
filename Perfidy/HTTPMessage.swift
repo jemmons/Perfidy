@@ -65,7 +65,7 @@ struct HTTPMessage{
   var bodyString:String?{
     switch body{
     case .some(let data):
-      return NSString(data:data , encoding:String.Encoding.utf8.rawValue) as? String
+      return String(data:data, encoding:.utf8)
     case .none:
       return nil
     }
@@ -110,6 +110,8 @@ struct HTTPMessage{
   
   
   func append(_ data:Data){
-    CFHTTPMessageAppendBytes(message, unsafeBitCast((data as NSData).bytes, to: UnsafePointer<UInt8>.self), data.count)
+    data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> Void in
+      CFHTTPMessageAppendBytes(message, bytes, data.count)
+    }
   }
 }
