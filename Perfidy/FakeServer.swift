@@ -5,6 +5,10 @@ private enum Const {
 }
 
 public class FakeServer : NSObject{
+  public static let defaultURL: URL = URL(string: "http://localhost:10175")!
+  public var url: URL {
+    return URL(string: "http://localhost:\(port)")!
+  }
   public var callback = FakeServerCallbacks()
   fileprivate var requests = [URLRequest]()
   

@@ -219,6 +219,21 @@ class ServerTests: XCTestCase {
       waitForExpectations(timeout: 1.0, handler: nil)
     }
   }
+  
+  
+  func testDefaultURL() {
+    XCTAssertEqual(FakeServer.defaultURL.absoluteString, "http://localhost:10175")
+  }
+  
+  
+  func testFakeServerURL() {
+    let expectedURL = expectation(description: "Waiting for expected URL")
+    FakeServer.runWith(port: 11111) { server in
+      XCTAssertEqual(server.url.absoluteString, "http://localhost:11111")
+      expectedURL.fulfill()
+    }
+    wait(for: [expectedURL], timeout: 1)
+  }
 }
 
 
