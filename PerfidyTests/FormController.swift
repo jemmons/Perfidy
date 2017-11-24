@@ -19,9 +19,9 @@ class MockForm {
   
   func save(){
     var json = [AnyHashable: Any]()
-    json["first_name"] = "first"//firstName
-    json["last_name"] = "last"//lastName
-    json["age"] = "55"//age
+    json["first_name"] = "first"
+    json["last_name"] = "last"
+    json["age"] = "55"
     let data = try! JSONSerialization.data(withJSONObject: json, options: [])
     var req = URLRequest(url: URL(string: "http://localhost:10175/form")!)
     req.httpMethod = "POST"

@@ -1,2 +1,3 @@
 github "jemmons/Gauntlet" "v3.0"
-github "jemmons/Medea" "v0.5"
+github "jemmons/Medea" "v0.5.2"
+github "jemmons/SessionArtist" "v0.6.1"

@@ -1,10 +1,12 @@
 import Foundation
+import Medea
 
-private enum Const {
-  static let defaultStatusCode = 404
-}
 
 public class FakeServer : NSObject{
+  public enum Constant {
+    static public let defaultStatusCode = 404
+  }
+  
   public static let defaultURL: URL = URL(string: "http://localhost:10175")!
   public var url: URL {
     return URL(string: "http://localhost:\(port)")!
@@ -21,7 +23,7 @@ public class FakeServer : NSObject{
   fileprivate var routeToHandlerMap = Dictionary<Route, (URLRequest)->Void>()
 
   
-  public init(port: UInt16 = 10175, defaultStatusCode: Int = Const.defaultStatusCode){
+  public init(port: UInt16 = 10175, defaultStatusCode: Int = Constant.defaultStatusCode){
     self.port = port
     self.defaultStatusCode = defaultStatusCode
     super.init()
@@ -37,7 +39,7 @@ public extension FakeServer{
   }
   
   
-  static func runWith(port: UInt16 = 10175, defaultStatusCode: Int = Const.defaultStatusCode, f: (FakeServer)->Void) {
+  static func runWith(port: UInt16 = 10175, defaultStatusCode: Int = Constant.defaultStatusCode, f: (FakeServer)->Void) {
     let server = FakeServer(port: port, defaultStatusCode: defaultStatusCode)
     try! server.start()
     defer {
@@ -69,12 +71,24 @@ public extension FakeServer{
   func add(_ routesAndResponses: [(route: Route, response: Response)]) {
     routesAndResponses.forEach { add($0.route, response: $0.response) }
   }
+
   
-  
-  func add(_ routes: [Route]) {
-    routes.forEach {
-      add($0)
+  func add(_ jsonArray: [JSONObject]) {
+    let routesAndResponses: [(Route, Response)] = jsonArray.map { json in
+      let route = Route(method: json["method"] as? String, path: json["path"] as? String)
+      let response = Response(status: json["status"] as? Int, data: Helper.data(from: json["content"]))
+      return (route, response)
     }
+    
+    add(routesAndResponses)
+  }
+  
+  
+  func add(fromFileName name: String, bundle: Bundle = Bundle.main) throws {
+    guard let jsonArray = try JSONHelper.jsonArray(fromFileNamed: name, bundle: bundle) as? [JSONObject] else {
+      throw FileError.malformed(name)
+    }
+    add(jsonArray)
   }
   
   
@@ -112,5 +126,24 @@ extension FakeServer: GCDAsyncSocketDelegate {
       }
     }
     connections.append(connection)
+  }
+}
+
+
+
+private enum Helper {
+  static func data(from content: Any?) -> Data? {
+    switch content {
+    case let obj as JSONObject:
+      return try? JSONHelper.data(from: obj)
+    case let arr as JSONArray:
+      return try? JSONHelper.data(from: arr)
+    case is NSNull:
+      return nil
+    case let any?:
+      return String(describing: any).data(using: .utf8)
+    case nil:
+      return nil
+    }
   }
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7302D3FD1FC766E300FC02E8 /* FromFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7390EB0D1F6D6E2200A03572 /* FromFileTests.swift */; };
+		7302D3FE1FC7681800FC02E8 /* mockinterface.json in Resources */ = {isa = PBXBuildFile; fileRef = 7390EB0C1F6D6E0800A03572 /* mockinterface.json */; };
+		7302D4001FC8BF4D00FC02E8 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7302D3FF1FC8BF4D00FC02E8 /* Errors.swift */; };
 		7317D3441B1244C400D0DC1B /* ResponseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317D3431B1244C400D0DC1B /* ResponseTests.swift */; };
 		731E6CE61B093DEA00DBBB96 /* Perfidy.h in Headers */ = {isa = PBXBuildFile; fileRef = 731E6CE51B093DEA00DBBB96 /* Perfidy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		731E6CEC1B093DEA00DBBB96 /* Perfidy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 731E6CE01B093DEA00DBBB96 /* Perfidy.framework */; };
@@ -23,8 +26,11 @@
 		73BC5E821B0FD773009C576E /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73BC5E811B0FD773009C576E /* Route.swift */; };
 		73BE034F1E146D1700002A8D /* Medea.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BE034E1E146D1700002A8D /* Medea.framework */; };
 		73BE03501E14B8EB00002A8D /* Medea.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73BE034E1E146D1700002A8D /* Medea.framework */; };
-		73FA36D71C947903009AF84D /* TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FA36D61C947903009AF84D /* TestTests.swift */; };
+		73FA36D71C947903009AF84D /* UsageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FA36D61C947903009AF84D /* UsageTests.swift */; };
 		73FA36D91C947962009AF84D /* FormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FA36D81C947962009AF84D /* FormController.swift */; };
+		73FF56C41F9523890040BA3A /* Cartfile.private in Resources */ = {isa = PBXBuildFile; fileRef = 73FF56C31F9523890040BA3A /* Cartfile.private */; };
+		73FF56C61F9529680040BA3A /* SessionArtist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73FF56C51F9529680040BA3A /* SessionArtist.framework */; };
+		73FF56C81F9529F10040BA3A /* SessionArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FF56C71F9529F10040BA3A /* SessionArtist.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7302D3FF1FC8BF4D00FC02E8 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		7317D3431B1244C400D0DC1B /* ResponseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseTests.swift; sourceTree = "<group>"; };
 		731E6CE01B093DEA00DBBB96 /* Perfidy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Perfidy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		731E6CE41B093DEA00DBBB96 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,12 +60,17 @@
 		731E6D071B093EAF00DBBB96 /* ServerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerTests.swift; sourceTree = "<group>"; };
 		737A82C31C8B8B9C0026BEB0 /* Gauntlet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Gauntlet.framework; path = Carthage/Build/iOS/Gauntlet.framework; sourceTree = SOURCE_ROOT; };
 		737A82CB1C8BE1EB0026BEB0 /* RouteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
+		7390EB0C1F6D6E0800A03572 /* mockinterface.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mockinterface.json; sourceTree = "<group>"; };
+		7390EB0D1F6D6E2200A03572 /* FromFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FromFileTests.swift; sourceTree = "<group>"; };
 		73BC5E7D1B0FB8EF009C576E /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		73BC5E7F1B0FD4C6009C576E /* Verb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verb.swift; sourceTree = "<group>"; };
 		73BC5E811B0FD773009C576E /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		73BE034E1E146D1700002A8D /* Medea.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Medea.framework; path = ../Carthage/Build/iOS/Medea.framework; sourceTree = "<group>"; };
-		73FA36D61C947903009AF84D /* TestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTests.swift; sourceTree = "<group>"; };
+		73FA36D61C947903009AF84D /* UsageTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsageTests.swift; sourceTree = "<group>"; };
 		73FA36D81C947962009AF84D /* FormController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormController.swift; sourceTree = "<group>"; };
+		73FF56C31F9523890040BA3A /* Cartfile.private */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.private; sourceTree = "<group>"; };
+		73FF56C51F9529680040BA3A /* SessionArtist.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SessionArtist.framework; path = Carthage/Build/iOS/SessionArtist.framework; sourceTree = "<group>"; };
+		73FF56C71F9529F10040BA3A /* SessionArtist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionArtist.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73FF56C61F9529680040BA3A /* SessionArtist.framework in Frameworks */,
 				731E6CEC1B093DEA00DBBB96 /* Perfidy.framework in Frameworks */,
 				73BE03501E14B8EB00002A8D /* Medea.framework in Frameworks */,
 			);
@@ -86,10 +99,11 @@
 		731E6CD61B093DEA00DBBB96 = {
 			isa = PBXGroup;
 			children = (
+				731E6CFC1B093E5900DBBB96 /* Cartfile */,
+				73FF56C31F9523890040BA3A /* Cartfile.private */,
 				731E6CE21B093DEA00DBBB96 /* Perfidy */,
 				731E6CEF1B093DEA00DBBB96 /* PerfidyTests */,
 				731E6CE11B093DEA00DBBB96 /* Products */,
-				731E6CFC1B093E5900DBBB96 /* Cartfile */,
 				73BE034D1E146D1700002A8D /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -111,6 +125,7 @@
 				73BC5E7D1B0FB8EF009C576E /* Response.swift */,
 				73BC5E7F1B0FD4C6009C576E /* Verb.swift */,
 				73BC5E811B0FD773009C576E /* Route.swift */,
+				7302D3FF1FC8BF4D00FC02E8 /* Errors.swift */,
 				73BC5E831B10D519009C576E /* Internal */,
 				731E6CE31B093DEA00DBBB96 /* Supporting Files */,
 			);
@@ -133,7 +148,8 @@
 				731E6D071B093EAF00DBBB96 /* ServerTests.swift */,
 				737A82CB1C8BE1EB0026BEB0 /* RouteTests.swift */,
 				7317D3431B1244C400D0DC1B /* ResponseTests.swift */,
-				73FA36D61C947903009AF84D /* TestTests.swift */,
+				7390EB0D1F6D6E2200A03572 /* FromFileTests.swift */,
+				73FA36D61C947903009AF84D /* UsageTests.swift */,
 				731E6CF01B093DEA00DBBB96 /* Supporting Files */,
 			);
 			path = PerfidyTests;
@@ -144,6 +160,8 @@
 			children = (
 				731E6CF11B093DEA00DBBB96 /* Info.plist */,
 				73FA36D81C947962009AF84D /* FormController.swift */,
+				7390EB0C1F6D6E0800A03572 /* mockinterface.json */,
+				73FF56C71F9529F10040BA3A /* SessionArtist.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -162,6 +180,7 @@
 		73BE034D1E146D1700002A8D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				73FF56C51F9529680040BA3A /* SessionArtist.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -226,16 +245,16 @@
 			attributes = {
 				LastSwiftMigration = 0720;
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = MCMXCIX;
 				TargetAttributes = {
 					731E6CDF1B093DEA00DBBB96 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0910;
 					};
 					731E6CEA1B093DEA00DBBB96 = {
 						CreatedOnToolsVersion = 6.3.1;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0910;
 					};
 				};
 			};
@@ -262,6 +281,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73FF56C41F9523890040BA3A /* Cartfile.private in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +289,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7302D3FE1FC7681800FC02E8 /* mockinterface.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +321,7 @@
 				73BC5E7E1B0FB8EF009C576E /* Response.swift in Sources */,
 				73BC5E821B0FD773009C576E /* Route.swift in Sources */,
 				731E6D061B093EA500DBBB96 /* HTTPMessage.swift in Sources */,
+				7302D4001FC8BF4D00FC02E8 /* Errors.swift in Sources */,
 				73BC5E801B0FD4C6009C576E /* Verb.swift in Sources */,
 				731E6D051B093EA500DBBB96 /* HTTPConnection.swift in Sources */,
 				731E6D001B093E9000DBBB96 /* GCDAsyncSocket.m in Sources */,
@@ -311,10 +333,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				7317D3441B1244C400D0DC1B /* ResponseTests.swift in Sources */,
-				73FA36D71C947903009AF84D /* TestTests.swift in Sources */,
+				73FA36D71C947903009AF84D /* UsageTests.swift in Sources */,
 				737A82CC1C8BE1EB0026BEB0 /* RouteTests.swift in Sources */,
 				731E6D081B093EAF00DBBB96 /* ServerTests.swift in Sources */,
 				73FA36D91C947962009AF84D /* FormController.swift in Sources */,
+				73FF56C81F9529F10040BA3A /* SessionArtist.swift in Sources */,
+				7302D3FD1FC766E300FC02E8 /* FromFileTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,14 +361,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -388,14 +418,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -445,7 +481,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -469,7 +505,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mcmxcix.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -488,7 +524,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mcmxcix.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -503,7 +539,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mcmxcix.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

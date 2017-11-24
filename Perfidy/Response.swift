@@ -23,37 +23,37 @@ public struct Response {
   public let headers: [String:String]
   
   
-  public init(status: Int = 200, headers: [String:String] = [String:String](), data: Data?) {
-    self.status = status
+  public init(status: Int? = nil, headers: [String:String] = [:], data: Data?) {
+    self.status = status ?? 200
     self.body = data
     let contentLengthHeader = data == nil ? [:] : [Const.contentLengthKey:String(data!.count)]
-    self.headers = Helper.merging(headers, on: contentLengthHeader)
+    self.headers = headers.merging(onto: contentLengthHeader)
   }
   
   
-  public init(status: Int = 200, headers: [String:String] = [String:String](), text: String) {
-    let mergedHeaders = Helper.merging(headers, on: [Const.contentTypeKey: Const.textContentType])
+  public init(status: Int = 200, headers: [String:String] = [:], text: String) {
+    let mergedHeaders = headers.merging(onto: [Const.contentTypeKey: Const.textContentType])
     let data = text.data(using: .utf8, allowLossyConversion: true)!
     self.init(status: status, headers: mergedHeaders, data: data)
   }
   
   
-  public init(status: Int = 200, headers: [String:String] = [String:String](), jsonObject: JSONObject) throws {
+  public init(status: Int = 200, headers: [String:String] = [:], jsonObject: JSONObject) throws {
     let data = try JSONHelper.data(from: jsonObject)
-    let mergedHeaders = Helper.merging(headers, on: [Const.contentTypeKey: Const.jsonContentType])
+    let mergedHeaders = headers.merging(onto: [Const.contentTypeKey: Const.jsonContentType])
     self.init(status: status, headers: mergedHeaders, data: data)
   }
   
   
-  public init(status: Int = 200, headers: [String:String] = [String:String](), jsonArray: JSONArray) throws {
+  public init(status: Int = 200, headers: [String:String] = [:], jsonArray: JSONArray) throws {
     let data = try JSONHelper.data(from: jsonArray)
-    let mergedHeaders = Helper.merging(headers, on: [Const.contentTypeKey: Const.jsonContentType])
+    let mergedHeaders = headers.merging(onto: [Const.contentTypeKey: Const.jsonContentType])
     self.init(status: status, headers: mergedHeaders, data: data)
   }
   
   
-  public init(status: Int = 200, headers: [String:String] = [String:String](), rawJSON: String) throws {
-    let mergedHeaders = Helper.merging(headers, on: [Const.contentTypeKey: Const.jsonContentType])
+  public init(status: Int = 200, headers: [String:String] = [:], rawJSON: String) throws {
+    let mergedHeaders = headers.merging(onto: [Const.contentTypeKey: Const.jsonContentType])
     try JSONHelper.validate(rawJSON)
     self.init(status: status, headers: mergedHeaders, data: rawJSON.data(using: .utf8)!)
   }
@@ -112,13 +112,8 @@ extension Response: ExpressibleByIntegerLiteral {
 
 
 
-private enum Helper {
-  static func merging<K: Hashable, V>(_ source: [K: V], on target: [K: V]) -> [K: V] {
-    return source.reduce(target){ (last, next) in
-      var mutatingCopy = last
-      let (key, value) = next
-      mutatingCopy.updateValue(value, forKey:key)
-      return mutatingCopy
-    }
+private extension Dictionary {
+  func merging(onto right: Dictionary<Key, Value>) -> [Key: Value] {
+    return merging(right) { left, right  in left }
   }
 }

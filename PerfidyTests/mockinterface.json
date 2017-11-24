@@ -1,0 +1,29 @@
+[
+    {
+        "method": "GET",
+        "path": "/api/account/111",
+        "status": 200,
+        "content": {
+            "id": "111",
+            "name": "Walker",
+            "money": "10.33"
+        }
+    },
+    {
+        "method": "POST",
+        "path": "/api/account",
+        "status": 201,
+        "content": {
+            "id": "111",
+            "name": "Walker",
+            "money": "10.33"
+        }
+    },
+    {
+        "method": "PUT",
+        "path": "/api/account/111/money",
+        "status": 204,
+        "content": null
+    }
+
+]
