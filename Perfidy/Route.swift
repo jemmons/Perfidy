@@ -2,7 +2,7 @@ import Foundation
 
 
 
-public struct Route{
+public struct Route: Hashable {
   fileprivate let method: Verb
   fileprivate var path: String
 
@@ -18,14 +18,6 @@ public struct Route{
   
   init(request: URLRequest) {
     self.init(method: request.httpMethod, path: request.url?.path)
-  }
-}
-
-
-
-extension Route: Hashable{
-  public var hashValue:Int{
-    return path.hashValue ^ method.hashValue
   }
 }
 
