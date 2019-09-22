@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Medea",
+        "repositoryURL": "https://github.com/jemmons/Medea.git",
+        "state": {
+          "branch": "feature/swift5-and-swiftpm",
+          "revision": "affa0e81d4b0b8ebe9faf90272c683efe4a3a51b",
+          "version": null
+        }
+      },
+      {
+        "package": "swift-nio",
+        "repositoryURL": "https://github.com/apple/swift-nio.git",
+        "state": {
+          "branch": null,
+          "revision": "9201908b54578aa33f1d1826a5a680aca8991843",
+          "version": "2.8.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
