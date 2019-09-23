@@ -12,11 +12,13 @@ private enum Const {
 
 
 
-/// A simple struct that encapsulates the ideas of a status code, body, and HTTP headers.
-///
-/// As part of its «body» management, it automagically inserts the proper `Content-Length` into headers if not already present.
-/// 
-/// Using the json, and text convenience initializers also sets the `Content-Type` if not already present.
+/**
+ A simple struct that encapsulates the ideas of a status code, body, and HTTP headers.
+
+ As part of its «body» management, it automagically inserts the proper `Content-Length` into headers if not already present.
+ 
+ Using the json, and text convenience initializers also sets the `Content-Type` if not already present.
+ */
 public struct Response {
   public let status: Int
   public let body: Data?
@@ -66,16 +68,6 @@ extension Response: ExpressibleByStringLiteral {
   public init(stringLiteral value: String) {
     self.init(text: value)
   }
-  
-  
-  public init(unicodeScalarLiteral value: String){
-    self.init(text: value)
-  }
-  
-  
-  public init(extendedGraphemeClusterLiteral value: String){
-    self.init(text: value)
-  }
 }
 
 
@@ -100,7 +92,7 @@ extension Response: ExpressibleByDictionaryLiteral {
 
 
 
-//We'd implement array literal for JSON also, but JSON arrays are rare and the empty `Response()` becomes ambiguous if we have it.
+// We'd implement array literal for JSON also, but JSON arrays are rare and the empty `Response()` becomes ambiguous if we have it.
 
 
 
@@ -114,6 +106,6 @@ extension Response: ExpressibleByIntegerLiteral {
 
 private extension Dictionary {
   func merging(onto right: Dictionary<Key, Value>) -> [Key: Value] {
-    return merging(right) { left, right  in left }
+    return merging(right) { left, right in left }
   }
 }

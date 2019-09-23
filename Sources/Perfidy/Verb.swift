@@ -1,10 +1,16 @@
 import Foundation
 
-public enum Verb:String{
+
+
+public enum Verb: String, Equatable {
   case get="GET", head="HEAD", post="POST", put="PUT", patch="PATCH", delete="DELETE"
   
-  public init(string:String){
-    self = Verb(rawValue: string.uppercased()) ?? .get
+  
+  public init?(string: String) {
+    guard let someVerb = Verb(rawValue: string.uppercased()) else {
+      return nil
+    }
+    self = someVerb
   }
 }
 
