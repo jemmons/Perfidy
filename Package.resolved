@@ -5,9 +5,9 @@
         "package": "Medea",
         "repositoryURL": "https://github.com/jemmons/Medea.git",
         "state": {
-          "branch": "feature/swift5-and-swiftpm",
-          "revision": "affa0e81d4b0b8ebe9faf90272c683efe4a3a51b",
-          "version": null
+          "branch": null,
+          "revision": "806bfb36c4f1e12b365c8b4108a834f35a614c44",
+          "version": "5.0.0"
         }
       },
       {
