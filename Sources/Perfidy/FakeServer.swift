@@ -102,13 +102,31 @@ public extension FakeServer {
   }
   
   
+  @available(*, deprecated, renamed: "requests(for:)")
+  func requestsForRoute(_ route: Route) -> [URLRequest] {
+     return requests(for: route)
+   }
+
+   
   func numberOfRequests(for route: Route) -> Int {
     return requests(for: route).count
   }
   
   
+  @available(*, deprecated, renamed: "numberOfRequests(for:)")
+  func countOfRequestsForRoute(_ route: Route)->Int{
+     return numberOfRequests(for: route)
+   }
+   
+   
   func didRequest(route: Route) -> Bool {
     return !requests(for: route).isEmpty
+  }
+  
+  
+  @available(*, deprecated, renamed: "didRequest(route:)")
+  func didRequestRoute(_ route: Route) -> Bool {
+    return didRequest(route: route)
   }
 }
 
