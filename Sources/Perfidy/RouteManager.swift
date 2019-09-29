@@ -37,12 +37,16 @@ public extension RouteManager {
 
 extension RouteManager: HTTPHandlerDelegate {
   public func received(request: URLRequest) {
-    requests.append(request)
-    routeToHandler[Route(request: request)]?(request)
+    // Called from the thread of NIO’s event loop.
+    DispatchQueue.main.async {
+      self.requests.append(request)
+      self.routeToHandler[Route(request: request)]?(request)
+    }
   }
 
   
   public func response(for route: Route) -> Response? {
+    // Called from the thread of NIO’s event loop.
     return routeToResponse[route]
   }
 }
