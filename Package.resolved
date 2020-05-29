@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "Medea",
-        "repositoryURL": "https://github.com/jemmons/Medea.git",
-        "state": {
-          "branch": null,
-          "revision": "806bfb36c4f1e12b365c8b4108a834f35a614c44",
-          "version": "5.0.0"
-        }
-      },
-      {
         "package": "swift-nio",
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {

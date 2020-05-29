@@ -1,5 +1,4 @@
 import Foundation
-import Medea
 
 
 
@@ -20,6 +19,25 @@ private enum Const {
  Using the json, and text convenience initializers also sets the `Content-Type` if not already present.
  */
 public struct Response {
+  public enum Error: LocalizedError {
+    case unableToSerializeJSON
+    
+    public var errorDescription: String? {
+      switch self {
+      case .unableToSerializeJSON:
+        return "Unable to convert given JSON to data."
+      }
+    }
+      
+    public var failureReason: String? {
+      switch self {
+      case .unableToSerializeJSON:
+        return "JSON Serialization Error"
+      }
+    }
+  }
+  
+  
   public let status: Int
   public let body: Data?
   public let headers: [String:String]
@@ -41,14 +59,20 @@ public struct Response {
   
   
   public init(status: Int = 200, headers: [String:String] = [:], jsonObject: JSONObject) throws {
-    let data = try JSONHelper.data(from: jsonObject)
+    guard JSONSerialization.isValidJSONObject(jsonObject) else {
+      throw Error.unableToSerializeJSON
+    }
+    let data = try JSONSerialization.data(withJSONObject: jsonObject, options: [])
     let mergedHeaders = headers.merging(onto: [Const.contentTypeKey: Const.jsonContentType])
     self.init(status: status, headers: mergedHeaders, data: data)
   }
   
   
   public init(status: Int = 200, headers: [String:String] = [:], jsonArray: JSONArray) throws {
-    let data = try JSONHelper.data(from: jsonArray)
+    guard JSONSerialization.isValidJSONObject(jsonArray) else {
+      throw Error.unableToSerializeJSON
+    }
+    let data = try JSONSerialization.data(withJSONObject: jsonArray, options: [])
     let mergedHeaders = headers.merging(onto: [Const.contentTypeKey: Const.jsonContentType])
     self.init(status: status, headers: mergedHeaders, data: data)
   }
@@ -56,8 +80,9 @@ public struct Response {
   
   public init(status: Int = 200, headers: [String:String] = [:], rawJSON: String) throws {
     let mergedHeaders = headers.merging(onto: [Const.contentTypeKey: Const.jsonContentType])
-    try JSONHelper.validate(rawJSON)
-    self.init(status: status, headers: mergedHeaders, data: rawJSON.data(using: .utf8)!)
+    let jsonData = Data(rawJSON.utf8)
+    _ = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments)
+    self.init(status: status, headers: mergedHeaders, data: jsonData)
   }
 }
 

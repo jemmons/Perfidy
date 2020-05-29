@@ -1,6 +1,7 @@
 import XCTest
 import Perfidy
-import Medea
+
+
 
 class ServerTests: XCTestCase {
   func testTimeout() {
@@ -151,8 +152,8 @@ class ServerTests: XCTestCase {
       
       session.resumeRequest("GET", "/path") { data, res, _ in
         XCTAssertEqual(res?.statusCode, 201)
-        let json = try! JSONHelper.jsonObject(from: data!)
-        XCTAssertEqual(json["thing"] as! NSNumber, 42)
+        let json = try! JSONDecoder().decode([String: Int].self, from: data!)
+        XCTAssertEqual(json["thing"], 42)
         expectedResponse.fulfill()
       }
 
@@ -170,8 +171,8 @@ class ServerTests: XCTestCase {
 
       session.resumeRequest("GET", "/path") { data, res, _ in
         XCTAssertEqual(res!.statusCode, 202)
-        let json = try! JSONHelper.jsonObject(from: data!)
-        XCTAssertEqual(json["fred"] as! String, "barney")
+        let json = try! JSONDecoder().decode([String: String].self, from: data!)
+        XCTAssertEqual(json["fred"], "barney")
         expectedResponse.fulfill()
       }
 
@@ -189,8 +190,8 @@ class ServerTests: XCTestCase {
 
       session.resumeRequest("GET", "/some/path") { data, res, _ in
         XCTAssertEqual(res!.statusCode, 203)
-        let json = try! JSONHelper.jsonArray(from: data!)
-        XCTAssertEqual(json as! [String], ["fred","barney"])
+        let json = try! JSONDecoder().decode([String].self, from: data!)
+        XCTAssertEqual(json, ["fred","barney"])
         expectResponse.fulfill()
       }
 
@@ -209,7 +210,7 @@ class ServerTests: XCTestCase {
         expectReceived.fulfill()
       }
 
-      let data = try! JSONHelper.data(from: ValidJSONObject(["foo": "bar"]))
+      let data = try! JSONEncoder().encode(["foo": "bar"])
       session.resumeRequest("POST", "/", body: data) { _, _, _ in
         expectSent.fulfill()
       }
