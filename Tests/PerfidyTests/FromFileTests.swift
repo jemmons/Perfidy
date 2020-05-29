@@ -1,6 +1,5 @@
 import XCTest
 import Perfidy
-import Medea
 
 
 
@@ -27,8 +26,8 @@ class FromFileTests: XCTestCase {
     session.resumeRequest("GET", "/api/account/111") { data, res, err in
       XCTAssertNil(err)
       XCTAssertEqual(res?.statusCode, 200)
-      let json = try! JSONHelper.jsonObject(from: data!)
-      XCTAssertEqual(json as! [String: String], K.account)
+      let json = try! JSONDecoder().decode([String: String].self, from: data!)
+      XCTAssertEqual(json, K.account)
       expectedGETResponse.fulfill()
     }
     
@@ -36,8 +35,8 @@ class FromFileTests: XCTestCase {
     session.resumeRequest("POST", "/api/account") { data, res, err in
       XCTAssertNil(err)
       XCTAssertEqual(res?.statusCode, 201)
-      let json = try! JSONHelper.jsonObject(from: data!)
-      XCTAssertEqual(json as! [String: String], K.account)
+      let json = try! JSONDecoder().decode([String: String].self, from: data!)
+      XCTAssertEqual(json, K.account)
       expectedPOSTResponse.fulfill()
     }
 

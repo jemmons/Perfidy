@@ -1,7 +1,6 @@
 import Foundation
 import NIO
 import NIOHTTP1
-import Medea
 
 
 public class FakeServer {
@@ -27,6 +26,32 @@ public class FakeServer {
 
 // MARK: - Public
 public extension FakeServer {
+  enum Error: LocalizedError {
+    case fileNotFound(String), unreadable(URL), notArrayOfObjects
+    
+    public var errorDescription: String? {
+      switch self {
+      case .fileNotFound(let n):
+        return "The file “\(n)” could not be found."
+      case .unreadable(let url):
+        return "Unable to open or read the file at \(url.absoluteString)."
+      case .notArrayOfObjects:
+        return "Expected an array of objects, but found some other JSON type."
+      }
+    }
+
+    
+    public var failureReason: String? {
+      switch self {
+      case .fileNotFound, .unreadable:
+        return "File Error"
+      case .notArrayOfObjects:
+        return "JSON Error"
+      }
+    }
+  }
+
+
   enum Default {
     public static let port = 10175
     public static let status = 404
@@ -78,8 +103,8 @@ public extension FakeServer {
   }
   
   
-  func add(_ jsonArray: [JSONObject]) {
-    let routesAndResponses: [(Route, Response)] = jsonArray.map { json in
+  func add(_ jsonArrayOfObjects: [JSONObject]) {
+    let routesAndResponses: [(Route, Response)] = jsonArrayOfObjects.map { json in
       let route = Route(method: json["method"] as? String, path: json["path"] as? String)
       let response = Response(status: json["status"] as? Int, data: Helper.data(from: json["content"]))
       return (route, response)
@@ -90,10 +115,16 @@ public extension FakeServer {
   
   
   func add(fromFileName name: String, bundle: Bundle = Bundle.main) throws {
-    guard let jsonArray = try JSONHelper.jsonArray(fromFileNamed: name, bundle: bundle) as? [JSONObject] else {
-      throw FileError.malformed(name)
+    guard let url = bundle.url(forResource: name, withExtension: "json") else {
+      throw Error.fileNotFound(name + ".json")
     }
-    add(jsonArray)
+    guard let data = try? Data(contentsOf: url) else {
+      throw Error.unreadable(url)
+    }
+    guard let jsonArrayOfObjects = try JSONSerialization.jsonObject(with: data, options: []) as? [JSONObject] else {
+      throw Error.notArrayOfObjects
+    }
+    add(jsonArrayOfObjects)
   }
   
   
@@ -163,9 +194,15 @@ private enum Helper {
   static func data(from content: Any?) -> Data? {
     switch content {
     case let obj as JSONObject:
-      return try? JSONHelper.data(from: obj)
+      guard JSONSerialization.isValidJSONObject(obj) else {
+        return nil
+      }
+      return try? JSONSerialization.data(withJSONObject: obj, options: [])
     case let arr as JSONArray:
-      return try? JSONHelper.data(from: arr)
+      guard JSONSerialization.isValidJSONObject(arr) else {
+        return nil
+      }
+      return try? JSONSerialization.data(withJSONObject: arr, options: [])
     case is NSNull:
       return nil
     case let any?:
