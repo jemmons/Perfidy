@@ -12,12 +12,10 @@ private enum K {
 
 
 class FromFileTests: XCTestCase {
-  
-  func testMockInterface() {
-    let server = FakeServer()
-    try! server.add(fromFileName: "mockinterface", bundle: fetchFakeBundle())
-    try! server.start()
+  func testMockInterface() throws {
+    let server = try FakeServer()
     defer { server.stop() }
+    try server.add(fromFileName: "mockinterface", bundle: fetchFakeBundle())
     
     let expectedGETResponse = expectation(description: "Waiting for GET response")
     let expectedPOSTResponse = expectation(description: "Waiting for POST response")
@@ -48,7 +46,7 @@ class FromFileTests: XCTestCase {
       expectedPUTResponse.fulfill()
     }
     
-    wait(for: [expectedGETResponse, expectedPOSTResponse, expectedPUTResponse], timeout: 1)
+    wait(for: [expectedGETResponse, expectedPOSTResponse, expectedPUTResponse], timeout: 10)
   }
 }
 

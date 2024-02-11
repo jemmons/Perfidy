@@ -26,8 +26,8 @@ class ResponseTests : XCTestCase{
   }
   
   
-  func testRawJSON() {
-    let subject = try! Response(rawJSON: "{\"foo\":\"bar\"}")
+  func testRawJSON() throws {
+    let subject = try Response(rawJSON: "{\"foo\":\"bar\"}")
     XCTAssertEqual(String(data: subject.body!, encoding: String.Encoding.utf8), "{\"foo\":\"bar\"}")
     XCTAssertEqual(subject.headers[lengthKey], "13")
     XCTAssertEqual(subject.headers[typeKey], "application/json")
@@ -51,16 +51,16 @@ class ResponseTests : XCTestCase{
   }
   
   
-  func testJSONObject() {
-    let subject = try! Response(jsonObject: ["foo":"bar"])
+  func testJSONObject() throws {
+    let subject = try Response(jsonObject: ["foo":"bar"])
     XCTAssertEqual(String(data: subject.body!, encoding: .utf8), "{\"foo\":\"bar\"}")
     XCTAssertEqual(subject.headers[lengthKey], "13")
     XCTAssertEqual(subject.headers[typeKey], "application/json")
   }
   
   
-  func testJSONArray() {
-    let subject = try! Response(jsonArray: [1,2,3])
+  func testJSONArray() throws {
+    let subject = try Response(jsonArray: [1,2,3])
     XCTAssertEqual(String(data: subject.body!, encoding: .utf8), "[1,2,3]")
     XCTAssertEqual(subject.headers[lengthKey], "7")
     XCTAssertEqual(subject.headers[typeKey], "application/json")
