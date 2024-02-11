@@ -7,18 +7,17 @@ public class FakeServer {
   private let routeManager = RouteManager()
   private let port: Int
   private let defaultStatus: Int
+  private var group: EventLoopGroup?
+  private var channel: Channel?
   
   
   public static let defaultURL: URL = URL(string: "http://localhost:\(Default.port)")!
   
   
-  private var group: EventLoopGroup?
-  private var channel: Channel?
-  
-  
-  public init(port: Int = Default.port, defaultStatusCode: Int = Default.status) {
+  public init(port: Int = Default.port, defaultStatusCode: Int = Default.status) throws {
     self.port = port
     self.defaultStatus = defaultStatusCode
+    try start()
   }
 }
 
@@ -63,22 +62,6 @@ public extension FakeServer {
   }
   
   
-  static func runWith(port: Int = Default.port, defaultStatusCode: Int = Default.status, ƒ: (FakeServer)->Void) {
-    let server = FakeServer(port: port, defaultStatusCode: defaultStatusCode)
-    try! server.start()
-    defer {
-      server.stop()
-    }
-    ƒ(server)
-  }
-  
-  
-  func start() throws {
-    group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-    channel = try Helper.doBootstrap(port: port, defaultStatus: defaultStatus, group: group!, delegate: routeManager)
-  }
-  
-  
   func stop() {
     routeManager.clear()
     
@@ -87,7 +70,6 @@ public extension FakeServer {
     try? group?.syncShutdownGracefully()
     group = nil
   }
-  
   
   
   func add(_ route: Route, response: Response = 200, handler: ((URLRequest) -> Void)? = nil) {
@@ -158,6 +140,15 @@ public extension FakeServer {
   @available(*, deprecated, renamed: "didRequest(route:)")
   func didRequestRoute(_ route: Route) -> Bool {
     return didRequest(route: route)
+  }
+}
+
+
+
+private extension FakeServer {
+  func start() throws {
+    group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+    channel = try Helper.doBootstrap(port: port, defaultStatus: defaultStatus, group: group!, delegate: routeManager)
   }
 }
 
